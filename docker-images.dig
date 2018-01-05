@@ -1,0 +1,18 @@
+!include : "conf.dig"
+
++erlang_docker_images:
+  for_each>:
+    erlang: ${erlang}
+  _parallel: true
+  _do:
+    +docker_image:
+      sh>: docker build --pull -t nesachirou/erlang:${erlang.major_version} erl${erlang.major_version}
+
++elixir_docker_images:
+  for_each>:
+    erlang: ${erlang}
+    elixir: ${elixir}
+  _parallel: true
+  _do:
+    +docker_image:
+      sh>: docker build -t nesachirou/elixir:${elixir.major_version}_erl${erlang.major_version} ex${elixir.major_version}_erl${erlang.major_version}

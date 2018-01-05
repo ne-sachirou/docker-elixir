@@ -1,0 +1,11 @@
+_export:
+  erlang:
+    - version: 19.3.6.5
+      major_version: 19
+    - version: 20.2.2
+      major_version: 20
+  elixir:
+    - version: 1.4.5
+      major_version: 1.4
+    - version: 1.5.3
+      major_version: 1.5

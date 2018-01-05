@@ -1,0 +1,32 @@
+!include : "conf.dig"
+
++erlang_dockerfiles:
+  for_each>:
+    erlang: ${erlang}
+  _parallel: true
+  _do:
+    _export:
+      dir: erl${erlang.major_version}
+
+    +mkdir:
+      sh>: mkdir -p ${dir}
+
+    +dockerfile:
+      sh>: |
+        elixir -e 'File.write! "${dir}/Dockerfile", EEx.eval_file("Dockerfile.erlang.eex", erlang: "${erlang.version}")'
+
++elixir_dockerfiles:
+  for_each>:
+    erlang: ${erlang}
+    elixir: ${elixir}
+  _parallel: true
+  _do:
+    _export:
+      dir: ex${elixir.major_version}_erl${erlang.major_version}
+
+    +mkdir:
+      sh>: mkdir -p ${dir}
+
+    +dockerfile:
+      sh>: |
+        elixir -e 'File.write! "${dir}/Dockerfile", EEx.eval_file("Dockerfile.elixir.eex", erlang: "${erlang.major_version}", elixir: "${elixir.version}")'
