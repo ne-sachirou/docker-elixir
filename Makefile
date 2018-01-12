@@ -5,11 +5,12 @@ help:
 	@awk -F ':.*##' '/^[a-zA-Z_-]+:.*##/{printf "%-12s\t%s\n",$$1,$$2}' $(MAKEFILE_LIST) | sort
 
 .PHONY: all
-all: clean dockerfiles docker-images ## Clean & build all.
+all: dockerfiles docker-images ## build all.
 
 .PHONY: clean
 clean: ## Clean
 	rm -rf erl* ex*
+	rm -f /tmp/OTP-*.tar.gz
 
 .PHONY: dockerfiles
 dockerfiles: ## Render Dockerfiles.
@@ -20,3 +21,9 @@ docker-images: ## Build Docker images.
 	digdag r --project . --session "$(shell date +"%Y-%m-%d %H:%M:%S")" docker-images.dig
 	docker tag nesachirou/erlang:20 nesachirou/erlang:latest
 	docker tag nesachirou/elixir:1.5_erl20 nesachirou/elixir:latest
+
+.PHONY: publish
+publish: ## Publish Docker images to Docker Hub.
+	docker push nesachirou/erlang:19
+	docker push nesachirou/erlang:20
+	docker push nesachirou/erlang:latest

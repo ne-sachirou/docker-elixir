@@ -1,30 +1,46 @@
 FROM alpine:3.7
 
-RUN apk add -U \
+ADD OTP.tar.gz /root
+
+RUN set -ex \
+ && apk update \
+ && apk add -t .build-deps \
     autoconf \
     build-base \
-    curl \
+    dpkg \
+    dpkg-dev \
+    libxml2-utils \
+    libxslt \
+    lksctp-tools-dev \
     ncurses-dev \
     openjdk8 \
     openssl-dev \
     unixodbc-dev \
-    unzip \
-    zlib-dev
-
-ENV PATH=/usr/lib/jvm/java-1.8-openjdk/bin:$PATH
-
-RUN cd /root \
- && curl -L https://github.com/erlang/otp/archive/OTP-19.3.6.5.zip > otp.zip \
- && unzip otp.zip \
+    zlib-dev \
+ && export PATH=/usr/lib/jvm/java-1.8-openjdk/bin:$PATH \
+ && cd /root \
  && (cd otp-* \
  && ./otp_build autoconf \
- && ./configure --with-ssl=/usr/include \
- && make -j$(awk -F: '/cpu cores/{sum+=$2}END{print sum}' /proc/cpuinfo) \
- && make -j$(awk -F: '/cpu cores/{sum+=$2}END{print sum}' /proc/cpuinfo) install) \
- && rm -rf otp* \
- && apk del \
-    autoconf \
-    build-base \
-    curl \
-    unzip \
+ && ./configure \
+    --build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
+    --enable-dynamic-ssl-lib \
+    --disable-builtin-zlib \
+    --with-ssl=/usr/include \
+    --without-debugger \
+    --without-et \
+    --without-observer \
+    --without-wx \
+ && make -j"$(getconf _NPROCESSORS_ONLN)" \
+ && make -j"$(getconf _NPROCESSORS_ONLN)" install ) \
+ && rm -rf otp-* \
+ && find /usr/local -regex '/usr/local/lib/erlang/\(lib/\|erts-\).*/\(man\|doc\|obj\|c_src\|emacs\|info\|examples\)' | xargs -r rm -vrf \
+ && find /usr/local -type f -regex '.*/src/.*' -not -regex '.*\.hrl$' -exec rm -v {} \+ \
+ && find /usr/local -type d -regex '.*/src/.*' | xargs -r -I{} sh -c 'rmdir -pv {} || true' \
+ && scanelf -BR -F '%F' -E ET_EXEC /usr/local | xargs -r strip -s \
+ && scanelf -BR -F '%F' -E ET_DYN /usr/local | xargs -r strip --strip-unneeded \
+ && runDeps="$(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr , '\n' | sort -u | awk 'system("[ -e /usr/local/lib/"$1" ]")==0{next}{print "so:"$1}')" \
+ && apk del --purge .build-deps \
+ && apk add $runDeps lksctp-tools \
  && rm -rf /var/cache/apk/*
+
+CMD ["erl"]
