@@ -20,10 +20,11 @@ dockerfiles: ## Render Dockerfiles.
 docker-images: ## Build Docker images.
 	digdag r --project . --session "$(shell date +"%Y-%m-%d %H:%M:%S")" docker-images.dig
 	docker tag nesachirou/erlang:20 nesachirou/erlang:latest
-	docker tag nesachirou/elixir:1.5_erl20 nesachirou/elixir:latest
+	docker tag nesachirou/elixir:1.6_erl20 nesachirou/elixir:latest
 
 .PHONY: publish
 publish: ## Publish Docker images to Docker Hub.
 	docker push nesachirou/erlang:19
 	docker push nesachirou/erlang:20
 	docker push nesachirou/erlang:latest
+	docker push nesachirou/elixir:latest
