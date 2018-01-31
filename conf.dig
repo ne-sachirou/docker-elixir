@@ -7,5 +7,5 @@ _export:
   elixir:
     - version: 1.5.3
       major_version: 1.5
-    - version: 1.6.0
+    - version: 1.6.1
       major_version: 1.6
