@@ -18,6 +18,16 @@ Supported tags and respective `Dockerfile` links
 * `1.6_erl19` [(ex1.6_erl19/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/ex1.6_erl19/Dockerfile)
 * `1.6_erl20`, `latest` [(ex1.6_erl19/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/ex1.6_erl20/Dockerfile)
 
+nesachirou/clojerl
+--
+* `HEAD_erl19` [(clje_erl19/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/clje_erl19/Dockerfile)
+* `HEAD_erl20` [(clje_erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/clje_erl20/Dockerfile)
+
+nesachirou/lfe
+--
+* `HEAD_erl19` [(lfe_erl19/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/lfe_erl19/Dockerfile)
+* `HEAD_erl20` [(lfe_erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/lfe_erl20/Dockerfile)
+
 TODO:
 - [ ] Don't build in Docker. Create Alpine Linux apk packages.
 - [ ] Move make + Digdag to [Waf: the meta build system][Waf]

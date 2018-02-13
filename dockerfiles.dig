@@ -1,32 +1,67 @@
 !include : "conf.dig"
 
-+erlang_dockerfiles:
-  for_each>:
-    erlang: ${erlang}
++dockerfiles:
   _parallel: true
-  _do:
-    _export:
-      dir: erl${erlang.major_version}
 
-    +mkdir:
-      sh>: mkdir -p ${dir}
+  +clojerl_dockerfiles:
+    for_each>:
+      clojerl: ${clojerl}
+      erlang: ${erlang}
+    _parallel: true
+    _do:
+      _export:
+        dir: clje_erl${erlang.major_version}
 
-    +dockerfile:
-      sh>: |
-        elixir -e 'File.write! "${dir}/Dockerfile", EEx.eval_file("Dockerfile.erlang.eex", erlang: "${erlang.version}")'
+      +mkdir:
+        sh>: mkdir -p ${dir}
 
-+elixir_dockerfiles:
-  for_each>:
-    erlang: ${erlang}
-    elixir: ${elixir}
-  _parallel: true
-  _do:
-    _export:
-      dir: ex${elixir.major_version}_erl${erlang.major_version}
+      +dockerfile:
+        sh>: |
+          elixir -e 'File.write! "${dir}/Dockerfile", EEx.eval_file("Dockerfile.clojerl.eex", erlang: "${erlang.major_version}", clojerl: "${clojerl.version}")'
 
-    +mkdir:
-      sh>: mkdir -p ${dir}
+  +erlang_dockerfiles:
+    for_each>:
+      erlang: ${erlang}
+    _parallel: true
+    _do:
+      _export:
+        dir: erl${erlang.major_version}
 
-    +dockerfile:
-      sh>: |
-        elixir -e 'File.write! "${dir}/Dockerfile", EEx.eval_file("Dockerfile.elixir.eex", erlang: "${erlang.major_version}", elixir: "${elixir.version}")'
+      +mkdir:
+        sh>: mkdir -p ${dir}
+
+      +dockerfile:
+        sh>: |
+          elixir -e 'File.write! "${dir}/Dockerfile", EEx.eval_file("Dockerfile.erlang.eex", erlang: "${erlang.version}")'
+
+  +elixir_dockerfiles:
+    for_each>:
+      erlang: ${erlang}
+      elixir: ${elixir}
+    _parallel: true
+    _do:
+      _export:
+        dir: ex${elixir.major_version}_erl${erlang.major_version}
+
+      +mkdir:
+        sh>: mkdir -p ${dir}
+
+      +dockerfile:
+        sh>: |
+          elixir -e 'File.write! "${dir}/Dockerfile", EEx.eval_file("Dockerfile.elixir.eex", erlang: "${erlang.major_version}", elixir: "${elixir.version}")'
+
+  +lfe_dockerfiles:
+    for_each>:
+      erlang: ${erlang}
+      lfe: ${lfe}
+    _parallel: true
+    _do:
+      _export:
+        dir: lfe_erl${erlang.major_version}
+
+      +mkdir:
+        sh>: mkdir -p ${dir}
+
+      +dockerfile:
+        sh>: |
+          elixir -e 'File.write! "${dir}/Dockerfile", EEx.eval_file("Dockerfile.lfe.eex", erlang: "${erlang.major_version}", lfe: "${lfe.version}")'
