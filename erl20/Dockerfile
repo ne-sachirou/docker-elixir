@@ -30,12 +30,12 @@ RUN set -ex \
     --without-et \
     --without-observer \
     --without-wx \
- && make -j"$(getconf _NPROCESSORS_ONLN)" \
- && make -j"$(getconf _NPROCESSORS_ONLN)" install ) \
+ && make -j \
+ && make -j install) \
  && rm -rf otp-* \
- && find /usr/local -regex '/usr/local/lib/erlang/\(lib/\|erts-\).*/\(man\|doc\|obj\|c_src\|emacs\|info\|examples\)' | xargs -r rm -vrf \
+ && find /usr/local -regex '/usr/local/lib/erlang/\(lib/\|erts-\).*/\(man\|doc\|obj\|c_src\|emacs\|info\|examples\)' -print0 | xargs -r0 rm -vrf \
  && find /usr/local -type f -regex '.*/src/.*' -not -regex '.*\.hrl$' -exec rm -v {} \+ \
- && find /usr/local -type d -regex '.*/src/.*' | xargs -r -I{} sh -c 'rmdir -pv {} || true' \
+ && find /usr/local -type d -regex '.*/src/.*' -print0 | xargs -r0 -I{} sh -c 'rmdir -pv {} || true' \
  && scanelf -BR -F '%F' -E ET_EXEC /usr/local | xargs -r strip -s \
  && scanelf -BR -F '%F' -E ET_DYN /usr/local | xargs -r strip --strip-unneeded \
  && runDeps="$(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr , '\n' | sort -u | awk 'system("[ -e /usr/local/lib/"$1" ]")==0{next}{print "so:"$1}')" \

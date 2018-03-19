@@ -1,4 +1,7 @@
 _export:
+  clojerl:
+    - version: b372555
+      major_version: HEAD
   erlang:
     - version: 19.3.6.6
       major_version: 19
@@ -9,3 +12,6 @@ _export:
       major_version: 1.5
     - version: 1.6.4
       major_version: 1.6
+  lfe:
+    - version: 5faa710
+      major_version: HEAD
