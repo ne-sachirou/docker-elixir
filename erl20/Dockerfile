@@ -24,8 +24,10 @@ RUN set -ex \
  && ./configure \
     --build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
     --enable-dynamic-ssl-lib \
-    --disable-builtin-zlib \
+    --enable-native-libs \
     --with-ssl=/usr/include \
+    --disable-builtin-zlib \
+    --enable-sharing-preserving \
     --without-debugger \
     --without-et \
     --without-observer \

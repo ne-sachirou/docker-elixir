@@ -3,9 +3,9 @@ _export:
     - version: b372555
       major_version: HEAD
   erlang:
-    - version: 19.3.6.6
+    - version: 19.3.6.7
       major_version: 19
-    - version: 20.3.1
+    - version: 20.3.2
       major_version: 20
   elixir:
     - version: 1.5.3
