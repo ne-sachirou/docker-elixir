@@ -1,52 +1,68 @@
 !include : "conf.dig"
 
-+erlang_resources:
-  for_each>:
-    erlang: ${erlang}
-  _parallel: true
-  _do:
-    +OTP.tar.gz:
-      sh>: |
-        set -ex
-        if [ ! -f /tmp/OTP-${erlang.version}.tar.gz ]; then
-          axel -a -n "$(getconf _NPROCESSORS_ONLN)" -o /tmp/OTP-${erlang.version}.tar.gz https://github.com/erlang/otp/archive/OTP-${erlang.version}.tar.gz
-        fi
-        cp /tmp/OTP-${erlang.version}.tar.gz erl${erlang.major_version}/OTP.tar.gz
++erlang:
+  +resources:
+    for_each>:
+      erlang: ${erlang}
+    _parallel: true
+    _do:
+      +OTP.tar.gz:
+        sh>: |
+          set -ex
+          if [ ! -f /tmp/OTP-${erlang.version}.tar.gz ]; then
+            axel -a -n "$(getconf _NPROCESSORS_ONLN)" -o /tmp/OTP-${erlang.version}.tar.gz https://github.com/erlang/otp/archive/OTP-${erlang.version}.tar.gz
+          fi
+          cp /tmp/OTP-${erlang.version}.tar.gz erl${erlang.major_version}/OTP.tar.gz
 
-+erlang_docker_images:
-  for_each>:
-    erlang: ${erlang}
-  _parallel: true
-  _do:
-    +docker_image:
-      sh>: docker build --pull -t nesachirou/erlang:${erlang.major_version} erl${erlang.major_version}
+  +docker_images:
+    for_each>:
+      erlang: ${erlang}
+    _parallel: true
+    _do:
+      +docker_image:
+        sh>: docker build --pull --force-rm -t nesachirou/erlang:${erlang.major_version} erl${erlang.major_version}
+
+  +tag_latest:
+    sh>: docker tag nesachirou/erlang:${latest.erlang} nesachirou/erlang:latest
 
 +beam_language_docker_images:
   _parallel: true
 
-  +clojerl_docker_images:
-    for_each>:
-      clojerl: ${clojerl}
-      erlang: ${erlang}
-    _parallel: true
-    _do:
-      +docker_image:
-        sh>: docker build -t nesachirou/clojerl:${clojerl.major_version}_erl${erlang.major_version} clje_erl${erlang.major_version}
+  +clojerl:
+    +docker_images:
+      for_each>:
+        clojerl: ${clojerl}
+        erlang: ${erlang}
+      _parallel: true
+      _do:
+        +docker_image:
+          sh>: docker build --force-rm -t nesachirou/clojerl:${clojerl.major_version}_erl${erlang.major_version} clje_erl${erlang.major_version}
 
-  +elixir_docker_images:
-    for_each>:
-      erlang: ${erlang}
-      elixir: ${elixir}
-    _parallel: true
-    _do:
-      +docker_image:
-        sh>: docker build -t nesachirou/elixir:${elixir.major_version}_erl${erlang.major_version} ex${elixir.major_version}_erl${erlang.major_version}
+    +tag_latest:
+      sh>: docker tag nesachirou/clojerl:${latest.clojerl}_erl${latest.erlang} nesachirou/clojerl:latest
 
-  +lfe_docker_images:
-    for_each>:
-      erlang: ${erlang}
-      lfe: ${lfe}
-    _parallel: true
-    _do:
-      +docker_image:
-        sh>: docker build -t nesachirou/lfe:${lfe.major_version}_erl${erlang.major_version} lfe_erl${erlang.major_version}
+  +elixir:
+    +docker_images:
+      for_each>:
+        erlang: ${erlang}
+        elixir: ${elixir}
+      _parallel: true
+      _do:
+        +docker_image:
+          sh>: docker build --force-rm -t nesachirou/elixir:${elixir.major_version}_erl${erlang.major_version} ex${elixir.major_version}_erl${erlang.major_version}
+
+    +tag_latest:
+      sh>: docker tag nesachirou/elixir:${latest.elixir}_erl${latest.erlang} nesachirou/elixir:latest
+
+  +lfe:
+    +docker_images:
+      for_each>:
+        erlang: ${erlang}
+        lfe: ${lfe}
+      _parallel: true
+      _do:
+        +docker_image:
+          sh>: docker build --force-rm -t nesachirou/lfe:${lfe.major_version}_erl${erlang.major_version} lfe_erl${erlang.major_version}
+
+    +tag_latest:
+      sh>: docker tag nesachirou/lfe:${latest.lfe}_erl${latest.erlang} nesachirou/lfe:latest
