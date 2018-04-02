@@ -11,7 +11,7 @@ RUN set -ex \
  && cd clojerl \
  && git init \
  && git remote add origin https://github.com/clojerl/clojerl.git \
- && git fetch --depth 1 origin <%= clojerl %> \
+ && git fetch origin master \
  && git checkout <%= clojerl %> \
  && make -j) \
  && apk del --purge .build-deps \

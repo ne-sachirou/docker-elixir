@@ -19,10 +19,6 @@ dockerfiles: ## Render Dockerfiles.
 .PHONY: docker-images
 docker-images: ## Build Docker images.
 	digdag r --project . --session "$(shell date +"%Y-%m-%d %H:%M:%S")" docker-images.dig
-	docker tag nesachirou/clojerl:HEAD_erl20 nesachirou/clojerl:latest
-	docker tag nesachirou/erlang:20 nesachirou/erlang:latest
-	docker tag nesachirou/elixir:1.6_erl20 nesachirou/elixir:latest
-	docker tag nesachirou/lfe:HEAD_erl20 nesachirou/lfe:latest
 
 .PHONY: publish
 publish: ## Publish Docker images to Docker Hub.
