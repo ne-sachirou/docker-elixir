@@ -25,4 +25,8 @@ publish: ## Publish Docker images to Docker Hub.
 	docker push nesachirou/erlang:19
 	docker push nesachirou/erlang:20
 	docker push nesachirou/erlang:latest
+	docker push nesachirou/elixir:1.5_erl19
+	docker push nesachirou/elixir:1.5_erl20
+	docker push nesachirou/elixir:1.6_erl19
+	docker push nesachirou/elixir:1.6_erl20
 	docker push nesachirou/elixir:latest
