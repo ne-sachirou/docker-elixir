@@ -1,4 +1,4 @@
-FROM nesachirou/erlang:20
+FROM nesachirou/erlang:21
 
 RUN set -ex \
  && apk update \

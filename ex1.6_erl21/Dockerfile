@@ -1,4 +1,4 @@
-FROM nesachirou/erlang:20
+FROM nesachirou/erlang:21
 
 ENV PATH=/root/elixir/bin:$PATH LANG=C.UTF-8
 

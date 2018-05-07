@@ -1,4 +1,4 @@
-FROM nesachirou/erlang:20
+FROM nesachirou/erlang:21
 
 ENV PATH=/root/elixir/bin:$PATH LANG=C.UTF-8
 
@@ -6,7 +6,7 @@ RUN set -ex \
  && apk update \
  && apk add -t .build-deps unzip \
  && cd /root \
- && wget https://github.com/elixir-lang/elixir/releases/download/v1.6.5/Precompiled.zip \
+ && wget https://github.com/elixir-lang/elixir/releases/download/v1.5.3/Precompiled.zip \
  && unzip Precompiled.zip -d elixir \
  && mix do local.hex --force, local.rebar --force \
  && rm Precompiled.zip \
