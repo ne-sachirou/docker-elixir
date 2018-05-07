@@ -4,6 +4,7 @@ ADD OTP.tar.gz /root
 
 RUN set -ex \
  && apk update \
+ && apk upgrade \
  && apk add -t .build-deps \
     autoconf \
     build-base \
