@@ -1,11 +1,11 @@
 _export:
   clojerl:
-    - version: 92181fd
+    - version: 4470ecb
       major_version: HEAD
   erlang:
-    - version: 19.3.6.8
+    - version: 19.3.6.9
       major_version: 19
-    - version: 20.3.5
+    - version: 20.3.6
       major_version: 20
     - version: 21.0-rc1
       major_version: 21
