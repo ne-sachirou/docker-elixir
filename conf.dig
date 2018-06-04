@@ -1,13 +1,13 @@
 _export:
   clojerl:
-    - version: 4470ecb
+    - version: e22d0c6
       major_version: HEAD
   erlang:
     - version: 19.3.6.9
       major_version: 19
     - version: 20.3.6
       major_version: 20
-    - version: 21.0-rc1
+    - version: 21.0-rc2
       major_version: 21
   elixir:
     - version: 1.5.3
