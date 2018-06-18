@@ -11,7 +11,7 @@ RUN set -ex \
  && git init \
  && git remote add origin https://github.com/rvirding/lfe.git \
  && git fetch origin develop \
- && git checkout 5faa710 \
+ && git checkout ea62f92 \
  && rm -rf .git \
  && make -j) \
  && apk del --purge .build-deps \
