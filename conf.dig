@@ -1,18 +1,16 @@
 _export:
   clojerl:
-    - version: de40a6a
+    - version: afe367a
       major_version: HEAD
   erlang:
-    - version: 19.3.6.9
-      major_version: 19
     - version: 20.3.8
       major_version: 20
-    - version: 21.0-rc2
+    - version: "21.0"
       major_version: 21
   elixir:
     - version: 1.5.3
       major_version: 1.5
-    - version: 1.6.5
+    - version: 1.6.6
       major_version: 1.6
   lfe:
     - version: ea62f92
@@ -20,5 +18,5 @@ _export:
   latest:
     clojerl: HEAD
     elixir: 1.6
-    erlang: 20
+    erlang: 21
     lfe: HEAD
