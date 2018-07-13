@@ -1,19 +1,6 @@
 !include : "conf.dig"
 
 +erlang:
-  +resources:
-    for_each>:
-      erlang: ${erlang}
-    _parallel: true
-    _do:
-      +OTP.tar.gz:
-        sh>: |
-          set -ex
-          if [ ! -f /tmp/OTP-${erlang.version}.tar.gz ]; then
-            axel -a -n "$(getconf _NPROCESSORS_ONLN)" -o /tmp/OTP-${erlang.version}.tar.gz https://github.com/erlang/otp/archive/OTP-${erlang.version}.tar.gz
-          fi
-          cp /tmp/OTP-${erlang.version}.tar.gz erl${erlang.major_version}/OTP.tar.gz
-
   +docker_images:
     for_each>:
       erlang: ${erlang}

@@ -1,15 +1,17 @@
 FROM nesachirou/erlang:21
 
-ENV PATH=/root/elixir/bin:$PATH LANG=C.UTF-8
+ENV PATH=/root/elixir-1.5.3/bin:$PATH LANG=C.UTF-8
+
+WORKDIR /root
 
 RUN set -ex \
- && apk update \
- && apk add -t .build-deps unzip \
- && cd /root \
- && wget https://github.com/elixir-lang/elixir/releases/download/v1.5.3/Precompiled.zip \
- && unzip Precompiled.zip -d elixir \
- && mix do local.hex --force, local.rebar --force \
- && rm Precompiled.zip \
+ && apk add --no-cache -t .build-deps make \
+ && wget https://github.com/elixir-lang/elixir/archive/v1.5.3.tar.gz \
+ && tar xzvf v1.5.3.tar.gz \
+ && (cd elixir-* \
+ && make compile -j) \
+ && mix "do" local.hex --force, local.rebar --force \
+ && rm v1.5.3.tar.gz \
  && apk del --purge .build-deps \
  && rm -rf /var/cache/apk/*
 

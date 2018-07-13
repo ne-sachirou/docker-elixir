@@ -16,8 +16,56 @@
         sh>: mkdir -p ${dir}
 
       +dockerfile:
-        sh>: |
-          elixir -e 'File.write! "${dir}/Dockerfile", EEx.eval_file("Dockerfile.clojerl.eex", erlang: "${erlang.major_version}", clojerl: "${clojerl.version}")'
+        py>: tasks.Template.render
+        src: Dockerfile.clojerl
+        dest: ${dir}/Dockerfile
+        template_vars: |
+          {
+            "clojerl": ${clojerl},
+            "erlang": ${erlang}
+          }
+
+      +container-structure-test:
+        py>: tasks.Template.render
+        src: container-structure-test.clojerl.yml
+        dest: ${dir}/container-structure-test.yml
+        template_vars: |
+          {
+            "clojerl": ${clojerl},
+            "erlang": ${erlang}
+          }
+
+  +elixir_dockerfiles:
+    for_each>:
+      elixir: ${elixir}
+      erlang: ${erlang}
+    _parallel: true
+    _do:
+      _export:
+        dir: ex${elixir.major_version}_erl${erlang.major_version}
+
+      +mkdir:
+        sh>: mkdir -p ${dir}
+
+      +dockerfile:
+        py>: tasks.Template.render
+        src: Dockerfile.elixir
+        dest: ${dir}/Dockerfile
+        template_vars: |
+          {
+            "elixir": ${elixir},
+            "erlang": ${erlang}
+          }
+
+      +container-structure-test:
+        py>: tasks.Template.render
+        src: container-structure-test.elixir.yml
+        dest: ${dir}/container-structure-test.yml
+        template_vars: |
+          {
+            "elixir": ${elixir},
+            "erlang": ${erlang}
+          }
 
   +erlang_dockerfiles:
     for_each>:
@@ -31,24 +79,22 @@
         sh>: mkdir -p ${dir}
 
       +dockerfile:
-        sh>: |
-          elixir -e 'File.write! "${dir}/Dockerfile", EEx.eval_file("Dockerfile.erlang.eex", erlang: "${erlang.version}")'
+        py>: tasks.Template.render
+        src: Dockerfile.erlang
+        dest: ${dir}/Dockerfile
+        template_vars: |
+          {
+            "erlang": ${erlang}
+          }
 
-  +elixir_dockerfiles:
-    for_each>:
-      erlang: ${erlang}
-      elixir: ${elixir}
-    _parallel: true
-    _do:
-      _export:
-        dir: ex${elixir.major_version}_erl${erlang.major_version}
-
-      +mkdir:
-        sh>: mkdir -p ${dir}
-
-      +dockerfile:
-        sh>: |
-          elixir -e 'File.write! "${dir}/Dockerfile", EEx.eval_file("Dockerfile.elixir.eex", erlang: "${erlang.major_version}", elixir: "${elixir.version}")'
+      +container-structure-test:
+        py>: tasks.Template.render
+        src: container-structure-test.erlang.yml
+        dest: ${dir}/container-structure-test.yml
+        template_vars: |
+          {
+            "erlang": ${erlang}
+          }
 
   +lfe_dockerfiles:
     for_each>:
@@ -63,5 +109,21 @@
         sh>: mkdir -p ${dir}
 
       +dockerfile:
-        sh>: |
-          elixir -e 'File.write! "${dir}/Dockerfile", EEx.eval_file("Dockerfile.lfe.eex", erlang: "${erlang.major_version}", lfe: "${lfe.version}")'
+        py>: tasks.Template.render
+        src: Dockerfile.lfe
+        dest: ${dir}/Dockerfile
+        template_vars: |
+          {
+            "erlang": ${erlang},
+            "lfe": ${lfe}
+          }
+
+      +container-structure-test:
+        py>: tasks.Template.render
+        src: container-structure-test.lfe.yml
+        dest: ${dir}/container-structure-test.yml
+        template_vars: |
+          {
+            "erlang": ${erlang},
+            "lfe": ${lfe}
+          }

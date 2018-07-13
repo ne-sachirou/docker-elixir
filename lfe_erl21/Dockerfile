@@ -2,12 +2,12 @@ FROM nesachirou/erlang:21
 
 ENV PATH=/root/lfe/bin:$PATH
 
+WORKDIR /root
+
 RUN set -ex \
- && apk update \
- && apk add -t .build-deps build-base git make \
- && cd /root \
- && (mkdir lfe \
- && cd lfe \
+ && apk add --no-cache -t .build-deps build-base git make \
+ && mkdir lfe \
+ && (cd lfe \
  && git init \
  && git remote add origin https://github.com/rvirding/lfe.git \
  && git fetch origin develop \

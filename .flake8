@@ -1,0 +1,4 @@
+[flake8]
+exclude=.waf*,_build
+ignore = D203
+max-line-length = 160

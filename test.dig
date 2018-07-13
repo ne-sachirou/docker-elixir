@@ -1,0 +1,63 @@
+!include : "conf.dig"
+
++test:
+  _parallel: true
+
+  +test_clojerl:
+    for_each>:
+      clojerl: ${clojerl}
+      erlang: ${erlang}
+    _parallel: true
+    _do:
+      _export:
+        dir: clje_erl${erlang.major_version}
+
+      +hadolint:
+        sh>: hadolint ${dir}/Dockerfile
+
+      +container-structure-test:
+        sh>: ./container-structure-test test --image nesachirou/clojerl:${clojerl.major_version}_erl${erlang.major_version} --config ${dir}/container-structure-test.yml
+
+  +test_elixir:
+    for_each>:
+      elixir: ${elixir}
+      erlang: ${erlang}
+    _parallel: true
+    _do:
+      _export:
+        dir: ex${elixir.major_version}_erl${erlang.major_version}
+
+      +hadolint:
+        sh>: hadolint ${dir}/Dockerfile
+
+      +container-structure-test:
+        sh>: ./container-structure-test test --image nesachirou/elixir:${elixir.major_version}_erl${erlang.major_version} --config ${dir}/container-structure-test.yml
+
+  +test_erlang:
+    for_each>:
+      erlang: ${erlang}
+    _parallel: true
+    _do:
+      _export:
+        dir: erl${erlang.major_version}
+
+      +hadolint:
+        sh>: hadolint ${dir}/Dockerfile
+
+      +container-structure-test:
+        sh>: ./container-structure-test test --image nesachirou/erlang:${erlang.major_version} --config ${dir}/container-structure-test.yml
+
+  +test_lfe:
+    for_each>:
+      erlang: ${erlang}
+      lfe: ${lfe}
+    _parallel: true
+    _do:
+      _export:
+        dir: lfe_erl${erlang.major_version}
+
+      +hadolint:
+        sh>: hadolint ${dir}/Dockerfile
+
+      +container-structure-test:
+        sh>: ./container-structure-test test --image nesachirou/lfe:${lfe.major_version}_erl${erlang.major_version} --config ${dir}/container-structure-test.yml

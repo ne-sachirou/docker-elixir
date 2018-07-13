@@ -27,15 +27,21 @@ Supported tags and respective `Dockerfile` links
 Build images
 --
 Requirements :
+* [container-structure-test](https://github.com/GoogleContainerTools/container-structure-test)
 * [Docker](https://www.docker.com/)
 * [Digdag](https://www.digdag.io/)
 * make
-* [axel](https://github.com/axel-download-accelerator/axel)
+* [Pipenv](https://docs.pipenv.org/)
+* Python 3
+
+```sh
+make help
+make clean all test
+```
 
 TODO:
 - [ ] Don't build in Docker. Create Alpine Linux apk packages.
-- [ ] Move make + Digdag to [Waf: the meta build system][Waf]
+- [ ] Move make + Digdag to [Waf: the meta build system](https://waf.io/)
 
 [Erlang Hub]: https://hub.docker.com/r/nesachirou/erlang/
 [Elixir Hub]: https://hub.docker.com/r/nesachirou/elixir/
-[Waf]: https://waf.io/

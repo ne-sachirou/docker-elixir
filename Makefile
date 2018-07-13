@@ -9,12 +9,15 @@ all: dockerfiles docker-images ## build all.
 
 .PHONY: clean
 clean: ## Clean
+	docker image ls | awk '/nesachirou\/clojerl/{print$$3}' | sort | uniq | xargs docker image rm -f || true
+	docker image ls | awk '/nesachirou\/elixir/{print$$3}' | sort | uniq | xargs docker image rm -f || true
+	docker image ls | awk '/nesachirou\/lfe/{print$$3}' | sort | uniq | xargs docker image rm -f || true
+	docker image ls | awk '/nesachirou\/erlang/{print$$3}' | sort | uniq | xargs docker image rm -f || true
 	rm -rf clje* erl* ex* lfe*
-	rm -f /tmp/OTP-*.tar.gz
 
 .PHONY: dockerfiles
 dockerfiles: ## Render Dockerfiles.
-	digdag r --project . --session "$(shell date +"%Y-%m-%d %H:%M:%S")" dockerfiles.dig
+	pipenv run digdag r --project . --session "$(shell date +"%Y-%m-%d %H:%M:%S")" dockerfiles.dig
 
 .PHONY: docker-images
 docker-images: ## Build Docker images.
@@ -30,3 +33,9 @@ publish: ## Publish Docker images to Docker Hub.
 	docker push nesachirou/elixir:1.6_erl20
 	docker push nesachirou/elixir:1.6_erl21
 	docker push nesachirou/elixir:latest
+
+.PHONY: test
+test: ## Test built Docker images.
+	pipenv check
+	pipenv run flake8
+	digdag r --project . --session "$(shell date +"%Y-%m-%d %H:%M:%S")" test.dig

@@ -1,23 +1,22 @@
-FROM nesachirou/erlang:<%= erlang %>
+FROM nesachirou/erlang:{{ erlang.major_version }}
+
+ENV PATH=/root/clojerl/bin:$PATH
+
+WORKDIR /root
 
 RUN set -ex \
- && apk update \
- && apk add -t .build-deps git make \
- && apk add -t .runtime-deps make \
+ && apk add --no-cache -t .build-deps git make \
  && wget -O /usr/local/bin/rebar3 https://s3.amazonaws.com/rebar3/rebar3 \
  && chmod +x /usr/local/bin/rebar3 \
- && cd /root \
- && (mkdir clojerl \
- && cd clojerl \
+ && mkdir clojerl \
+ && (cd clojerl \
  && git init \
  && git remote add origin https://github.com/clojerl/clojerl.git \
  && git fetch origin master \
- && git checkout <%= clojerl %> \
+ && git checkout {{ clojerl.version }} \
  && rm -rf .git \
  && make) \
  && apk del --purge .build-deps \
  && rm -rf /var/cache/apk/*
 
-WORKDIR /root/clojerl
-
-CMD ["make", "repl"]
+CMD ["clojerl"]
