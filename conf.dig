@@ -13,6 +13,8 @@ _export:
       major_version: 1.5
     - version: 1.6.6
       major_version: 1.6
+    - version: 1.7.0-rc.0
+      major_version: 1.7
   lfe:
     - version: ea62f92
       major_version: HEAD

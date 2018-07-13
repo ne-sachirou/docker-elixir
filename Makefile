@@ -32,6 +32,8 @@ publish: ## Publish Docker images to Docker Hub.
 	docker push nesachirou/elixir:1.5_erl21
 	docker push nesachirou/elixir:1.6_erl20
 	docker push nesachirou/elixir:1.6_erl21
+	docker push nesachirou/elixir:1.7_erl20
+	docker push nesachirou/elixir:1.7_erl21
 	docker push nesachirou/elixir:latest
 
 .PHONY: test
