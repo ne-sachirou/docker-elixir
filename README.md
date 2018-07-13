@@ -33,6 +33,7 @@ Requirements :
 * make
 * [Pipenv](https://docs.pipenv.org/)
 * Python 3
+* [yamllint](https://github.com/adrienverge/yamllint)
 
 ```sh
 make help

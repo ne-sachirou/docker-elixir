@@ -36,6 +36,7 @@ publish: ## Publish Docker images to Docker Hub.
 
 .PHONY: test
 test: ## Test built Docker images.
+	yamllint *.dig *.yml .*.yaml || true
 	pipenv check
 	pipenv run flake8
 	digdag r --project . --session "$(shell date +"%Y-%m-%d %H:%M:%S")" test.dig
