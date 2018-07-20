@@ -13,7 +13,7 @@ RUN set -ex \
  && git init \
  && git remote add origin https://github.com/clojerl/clojerl.git \
  && git fetch origin master \
- && git checkout 69b094b \
+ && git checkout dbc4e2b \
  && rm -rf .git \
  && make) \
  && apk del --purge .build-deps \
