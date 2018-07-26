@@ -2,7 +2,7 @@ default: help
 
 .PHONY: help
 help:
-	@awk -F ':.*##' '/^[a-zA-Z_-]+:.*##/{printf "%-12s\t%s\n",$$1,$$2}' $(MAKEFILE_LIST) | sort
+	@awk -F':.*##' '/^[-_a-zA-Z0-9]+:.*##/{printf"%-12s\t%s\n",$$1,$$2}' $(MAKEFILE_LIST) | sort
 
 .PHONY: all
 all: dockerfiles docker-images ## build all.
@@ -28,8 +28,6 @@ publish: ## Publish Docker images to Docker Hub.
 	docker push nesachirou/erlang:20
 	docker push nesachirou/erlang:21
 	docker push nesachirou/erlang:latest
-	docker push nesachirou/elixir:1.5_erl20
-	docker push nesachirou/elixir:1.5_erl21
 	docker push nesachirou/elixir:1.6_erl20
 	docker push nesachirou/elixir:1.6_erl21
 	docker push nesachirou/elixir:1.7_erl20
