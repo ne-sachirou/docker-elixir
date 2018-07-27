@@ -7,8 +7,7 @@
       erlang: ${erlang}
     _parallel: true
     _do:
-      +docker_image:
-        sh>: docker build --pull --force-rm -t nesachirou/erlang:${erlang.major_version} erl${erlang.major_version}
+      sh>: docker build --pull --force-rm -t nesachirou/erlang:${erlang.major_version} erl${erlang.major_version}
 
   +tag_latest:
     sh>: docker tag nesachirou/erlang:${latest.erlang} nesachirou/erlang:latest
@@ -23,8 +22,11 @@
         erlang: ${erlang}
       _parallel: true
       _do:
-        +docker_image:
-          sh>: docker build --force-rm -t nesachirou/clojerl:${clojerl.major_version}_erl${erlang.major_version} clje_erl${erlang.major_version}
+        sh>: |
+          docker build \
+            --force-rm \
+            -t nesachirou/clojerl:${clojerl.major_version}_erl${erlang.major_version} \
+            clje_erl${erlang.major_version}
 
     +tag_latest:
       sh>: docker tag nesachirou/clojerl:${latest.clojerl}_erl${latest.erlang} nesachirou/clojerl:latest
@@ -36,8 +38,11 @@
         elixir: ${elixir}
       _parallel: true
       _do:
-        +docker_image:
-          sh>: docker build --force-rm -t nesachirou/elixir:${elixir.major_version}_erl${erlang.major_version} ex${elixir.major_version}_erl${erlang.major_version}
+        sh>: |
+          docker build \
+            --force-rm \
+            -t nesachirou/elixir:${elixir.major_version}_erl${erlang.major_version} \
+            ex${elixir.major_version}_erl${erlang.major_version}
 
     +tag_latest:
       sh>: docker tag nesachirou/elixir:${latest.elixir}_erl${latest.erlang} nesachirou/elixir:latest
@@ -49,8 +54,11 @@
         lfe: ${lfe}
       _parallel: true
       _do:
-        +docker_image:
-          sh>: docker build --force-rm -t nesachirou/lfe:${lfe.major_version}_erl${erlang.major_version} lfe_erl${erlang.major_version}
+        sh>: |
+          docker build \
+            --force-rm \
+            -t nesachirou/lfe:${lfe.major_version}_erl${erlang.major_version} \
+            lfe_erl${erlang.major_version}
 
     +tag_latest:
       sh>: docker tag nesachirou/lfe:${latest.lfe}_erl${latest.erlang} nesachirou/lfe:latest

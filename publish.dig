@@ -1,0 +1,21 @@
+---
+!include : "conf.dig"
+
++erlang:
+  for_each>:
+    erlang: ${erlang}
+  _do:
+    sh>: docker push nesachirou/erlang:${erlang.major_version}
+
++erlang_latest:
+  sh>: docker push nesachirou/erlang:latest
+
++elixir:
+  for_each>:
+    erlang: ${erlang}
+    elixir: ${elixir}
+  _do:
+    sh>: docker push nesachirou/elixir:${elixir.major_version}_erl${erlang.major_version}
+
++elixir_latest:
+  sh>: docker push nesachirou/elixir:latest

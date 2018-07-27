@@ -25,18 +25,11 @@ docker-images: ## Build Docker images.
 
 .PHONY: publish
 publish: ## Publish Docker images to Docker Hub.
-	docker push nesachirou/erlang:20
-	docker push nesachirou/erlang:21
-	docker push nesachirou/erlang:latest
-	docker push nesachirou/elixir:1.6_erl20
-	docker push nesachirou/elixir:1.6_erl21
-	docker push nesachirou/elixir:1.7_erl20
-	docker push nesachirou/elixir:1.7_erl21
-	docker push nesachirou/elixir:latest
+	digdag r --project . --session "$(shell date +"%Y-%m-%d %H:%M:%S")" publish.dig
 
 .PHONY: test
 test: ## Test built Docker images.
-	yamllint *.dig *.yml .*.yaml || true
+	yamllint *.dig *.yml .*.yaml .yamllint
 	pipenv check
 	pipenv run flake8
 	digdag r --project . --session "$(shell date +"%Y-%m-%d %H:%M:%S")" test.dig
