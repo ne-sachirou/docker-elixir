@@ -11,7 +11,7 @@ _export:
   elixir:
     - version: 1.6.6
       major_version: 1.6
-    - version: 1.7.3
+    - version: 1.7.4
       major_version: 1.7
   lfe:
     - version: ea62f92
