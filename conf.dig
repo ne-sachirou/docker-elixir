@@ -4,7 +4,7 @@ _export:
     - version: fb9b8c6
       major_version: HEAD
   erlang:
-    - version: 20.3.8.10
+    - version: 20.3.8.11
       major_version: 20
     - version: 21.1.1
       major_version: 21
