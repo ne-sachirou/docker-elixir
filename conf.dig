@@ -4,9 +4,9 @@ _export:
     - version: "60281e7"
       major_version: HEAD
   erlang:
-    - version: 20.3.8.12
+    - version: 20.3.8.14
       major_version: 20
-    - version: 21.1.1
+    - version: 21.1.2
       major_version: 21
   elixir:
     - version: 1.6.6
