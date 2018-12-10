@@ -1,10 +1,10 @@
 ---
 _export:
   clojerl:
-    - version: "60281e7"
+    - version: "1e6486e"
       major_version: HEAD
   erlang:
-    - version: 20.3.8.14
+    - version: 20.3.8.15
       major_version: 20
     - version: 21.1.4
       major_version: 21
