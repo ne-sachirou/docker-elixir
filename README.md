@@ -11,12 +11,10 @@ Supported tags and respective `Dockerfile` links
 
 ### [nesachirou/elixir][Elixir Hub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/nesachirou/elixir.svg)][Elixir Hub]
-* `1.6_erl20` [(ex1.6_erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/ex1.6_erl20/Dockerfile)
-* `1.6_erl21` [(ex1.6_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/ex1.6_erl21/Dockerfile)
 * `1.7_erl20` [(ex1.7_erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/ex1.7_erl20/Dockerfile)
-* `1.7_erl21`, `latest` [(ex1.7_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/ex1.7_erl21/Dockerfile)
+* `1.7_erl21` [(ex1.7_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/ex1.7_erl21/Dockerfile)
 * `1.8_erl20` [(ex1.8_erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/ex1.8_erl20/Dockerfile)
-* `1.8_erl21` [(ex1.8_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/ex1.8_erl21/Dockerfile)
+* `1.8_erl21`, `latest` [(ex1.8_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/ex1.8_erl21/Dockerfile)
 
 ### nesachirou/clojerl
 * `HEAD_erl20` [(clje_erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/clje_erl20/Dockerfile)
