@@ -4,7 +4,7 @@ _export:
     - version: "5d4d41b"
       major_version: HEAD
   erlang:
-    - version: 20.3.8.18
+    - version: 20.3.8.20
       major_version: 20
     - version: 21.2.5
       major_version: 21
