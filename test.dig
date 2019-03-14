@@ -60,6 +60,25 @@
             --image nesachirou/erlang:${tag} \
             --config ${dir}/container-structure-test.yml
 
+  +test_joxa:
+    for_each>:
+      erlang: ${erlang}
+      joxa: ${joxa}
+    _parallel: true
+    _do:
+      _export:
+        dir: joxa_erl${erlang.major_version}
+        tag: ${joxa.major_version}_erl${erlang.major_version}
+
+      +hadolint:
+        sh>: hadolint ${dir}/Dockerfile
+
+      +container-structure-test:
+        sh>: |
+          container-structure-test test \
+            --image nesachirou/joxa:${tag} \
+            --config ${dir}/container-structure-test.yml
+
   +test_lfe:
     for_each>:
       erlang: ${erlang}

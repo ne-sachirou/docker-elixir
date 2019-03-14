@@ -11,9 +11,10 @@ all: dockerfiles docker-images ## build all.
 clean: ## Clean
 	docker image ls | awk '/nesachirou\/clojerl/{print$$3}' | sort | uniq | xargs docker image rm -f || true
 	docker image ls | awk '/nesachirou\/elixir/{print$$3}' | sort | uniq | xargs docker image rm -f || true
+	docker image ls | awk '/nesachirou\/joxa/{print$$3}' | sort | uniq | xargs docker image rm -f || true
 	docker image ls | awk '/nesachirou\/lfe/{print$$3}' | sort | uniq | xargs docker image rm -f || true
 	docker image ls | awk '/nesachirou\/erlang/{print$$3}' | sort | uniq | xargs docker image rm -f || true
-	rm -rf clje* erl* ex* lfe*
+	rm -rf clje* erl* ex* joxa* lfe*
 
 .PHONY: dockerfiles
 dockerfiles: ## Render Dockerfiles.

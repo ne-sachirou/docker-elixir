@@ -11,8 +11,7 @@ RUN set -ex \
  && mkdir clojerl \
  && (cd clojerl \
  && git init \
- && git remote add origin https://github.com/clojerl/clojerl.git \
- && git fetch origin master \
+ && git fetch --depth=1 https://github.com/clojerl/clojerl.git {{ clojerl.version }} \
  && git checkout {{ clojerl.version }} \
  && rm -rf .git \
  && make) \

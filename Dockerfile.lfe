@@ -9,8 +9,7 @@ RUN set -ex \
  && mkdir lfe \
  && (cd lfe \
  && git init \
- && git remote add origin https://github.com/rvirding/lfe.git \
- && git fetch origin develop \
+ && git fetch --depth=1 https://github.com/rvirding/lfe.git {{ lfe.version }} \
  && git checkout {{ lfe.version }} \
  && rm -rf .git \
  && make -j) \

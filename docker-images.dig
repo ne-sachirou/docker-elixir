@@ -47,6 +47,22 @@
     +tag_latest:
       sh>: docker tag nesachirou/elixir:${latest.elixir}_erl${latest.erlang} nesachirou/elixir:latest
 
+  +joxa:
+    +docker_images:
+      for_each>:
+        erlang: ${erlang}
+        joxa: ${joxa}
+      _parallel: true
+      _do:
+        sh>: |
+          docker build \
+            --force-rm \
+            -t nesachirou/joxa:${joxa.major_version}_erl${erlang.major_version} \
+            joxa_erl${erlang.major_version}
+
+    +tag_latest:
+      sh>: docker tag nesachirou/joxa:${latest.joxa}_erl${latest.erlang} nesachirou/joxa:latest
+
   +lfe:
     +docker_images:
       for_each>:

@@ -97,6 +97,38 @@
             "erlang": ${erlang}
           }
 
+  +joxa_dockerfiles:
+    for_each>:
+      erlang: ${erlang}
+      joxa: ${joxa}
+    _parallel: true
+    _do:
+      _export:
+        dir: joxa_erl${erlang.major_version}
+
+      +mkdir:
+        sh>: mkdir -p ${dir}
+
+      +dockerfile:
+        py>: tasks.Template.render
+        src: Dockerfile.joxa
+        dest: ${dir}/Dockerfile
+        template_vars: |
+          {
+            "erlang": ${erlang},
+            "joxa": ${joxa}
+          }
+
+      +container-structure-test:
+        py>: tasks.Template.render
+        src: container-structure-test.joxa.yml
+        dest: ${dir}/container-structure-test.yml
+        template_vars: |
+          {
+            "erlang": ${erlang},
+            "joxa": ${joxa}
+          }
+
   +lfe_dockerfiles:
     for_each>:
       erlang: ${erlang}
