@@ -1,4 +1,4 @@
-FROM nesachirou/erlang:{{ erlang.major_version }}
+FROM nesachirou/erlang:<%= erlang.major_version %>
 
 ENV PATH=/root/lfe/bin:$PATH
 
@@ -9,8 +9,8 @@ RUN set -ex \
  && mkdir lfe \
  && (cd lfe \
  && git init \
- && git fetch --depth=1 https://github.com/rvirding/lfe.git {{ lfe.version }} \
- && git checkout {{ lfe.version }} \
+ && git fetch --depth=1 https://github.com/rvirding/lfe.git <%= lfe.version %> \
+ && git checkout <%= lfe.version %> \
  && rm -rf .git \
  && make -j) \
  && apk del --purge .build-deps \

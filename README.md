@@ -21,7 +21,6 @@ Supported tags and respective `Dockerfile` links
 * `HEAD_erl21` [(clje_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/clje_erl21/Dockerfile)
 
 ### nesachirou/joxa
-* `HEAD_erl20` [(joxa_erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/joxa_erl20/Dockerfile)
 * `HEAD_erl21` [(joxa_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/joxa_erl21/Dockerfile)
 
 ### nesachirou/lfe
@@ -33,20 +32,14 @@ Build images
 Requirements :
 * [container-structure-test](https://github.com/GoogleContainerTools/container-structure-test)
 * [Docker](https://www.docker.com/)
-* [Digdag](https://www.digdag.io/)
-* make
-* [Pipenv](https://docs.pipenv.org/)
-* Python 3
+* [Elixir](https://elixir-lang.org/)
 * [yamllint](https://github.com/adrienverge/yamllint)
 
 ```sh
-make help
-make clean all test
+./make.exs help
+./make.exs all
+./make.exs publish
 ```
-
-TODO:
-- [ ] Don't build in Docker. Create Alpine Linux apk packages.
-- [ ] Move make + Digdag to [Waf: the meta build system](https://waf.io/)
 
 [Erlang Hub]: https://hub.docker.com/r/nesachirou/erlang/
 [Elixir Hub]: https://hub.docker.com/r/nesachirou/elixir/

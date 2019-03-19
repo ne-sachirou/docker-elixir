@@ -1,17 +1,17 @@
-FROM nesachirou/erlang:{{ erlang.major_version }}
+FROM nesachirou/erlang:<%= erlang.major_version %>
 
-ENV PATH=/root/elixir-{{ elixir.version }}/bin:$PATH LANG=C.UTF-8
+ENV PATH=/root/elixir-<%= elixir.version %>/bin:$PATH LANG=C.UTF-8
 
 WORKDIR /root
 
 RUN set -ex \
  && apk add --no-cache -t .build-deps make \
- && wget https://github.com/elixir-lang/elixir/archive/v{{ elixir.version }}.tar.gz \
- && tar xzvf v{{ elixir.version }}.tar.gz \
+ && wget https://github.com/elixir-lang/elixir/archive/v<%= elixir.version %>.tar.gz \
+ && tar xzvf v<%= elixir.version %>.tar.gz \
  && (cd elixir-* \
  && make compile -j) \
  && mix "do" local.hex --force, local.rebar --force \
- && rm v{{ elixir.version }}.tar.gz \
+ && rm v<%= elixir.version %>.tar.gz \
  && apk del --purge .build-deps \
  && rm -rf /var/cache/apk/*
 

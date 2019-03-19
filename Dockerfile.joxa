@@ -1,4 +1,4 @@
-FROM nesachirou/erlang:{{ erlang.major_version }}
+FROM nesachirou/erlang:<%= erlang.major_version %>
 
 WORKDIR /root
 
@@ -9,8 +9,8 @@ RUN set -ex \
  && mkdir joxa \
  && (cd joxa \
  && git init \
- && git fetch --depth=1 https://github.com/joxa/joxa.git {{ joxa.version }} \
- && git checkout {{ joxa.version }} \
+ && git fetch --depth=1 https://github.com/joxa/joxa.git <%= joxa.version %> \
+ && git checkout <%= joxa.version %> \
  && make get-deps \
  && make escript \
  && cp joxa /usr/local/bin/joxa) \

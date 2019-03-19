@@ -1,4 +1,4 @@
-FROM nesachirou/erlang:{{ erlang.major_version }}
+FROM nesachirou/erlang:<%= erlang.major_version %>
 
 ENV PATH=/root/clojerl/bin:$PATH
 
@@ -11,8 +11,8 @@ RUN set -ex \
  && mkdir clojerl \
  && (cd clojerl \
  && git init \
- && git fetch --depth=1 https://github.com/clojerl/clojerl.git {{ clojerl.version }} \
- && git checkout {{ clojerl.version }} \
+ && git fetch --depth=1 https://github.com/clojerl/clojerl.git <%= clojerl.version %> \
+ && git checkout <%= clojerl.version %> \
  && rm -rf .git \
  && make) \
  && apk del --purge .build-deps \
