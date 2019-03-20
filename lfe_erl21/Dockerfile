@@ -9,9 +9,8 @@ RUN set -ex \
  && mkdir lfe \
  && (cd lfe \
  && git init \
- && git remote add origin https://github.com/rvirding/lfe.git \
- && git fetch origin develop \
- && git checkout ea62f92 \
+ && git fetch --depth=1 https://github.com/rvirding/lfe.git ea62f924b7abbe2a0ff65e27be47acb7f452bc38 \
+ && git checkout ea62f924b7abbe2a0ff65e27be47acb7f452bc38 \
  && rm -rf .git \
  && make -j) \
  && apk del --purge .build-deps \

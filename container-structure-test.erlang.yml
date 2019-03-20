@@ -7,4 +7,4 @@ commandTests:
       - -noshell
       - -eval
       - io:format("~s~n", [erlang:system_info(otp_release)]), init:stop().
-    expectedOutput: ["{{ erlang.major_version }}"]
+    expectedOutput: ["<%= erlang.major_version %>"]
