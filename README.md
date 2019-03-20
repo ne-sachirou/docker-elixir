@@ -21,7 +21,7 @@ Supported tags and respective `Dockerfile` links
 * `HEAD_erl21` [(clje_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/clje_erl21/Dockerfile)
 
 ### nesachirou/joxa
-* `HEAD_erl21` [(joxa_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/joxa_erl21/Dockerfile)
+* `HEAD_erl21` [(jxa_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/jxa_erl21/Dockerfile)
 
 ### nesachirou/lfe
 * `HEAD_erl20` [(lfe_erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/lfe_erl20/Dockerfile)
