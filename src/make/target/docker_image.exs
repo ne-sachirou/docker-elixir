@@ -26,7 +26,7 @@ defmodule Make.Target.DockerImage do
       {_, 0} =
         System.cmd(
           "sh",
-          ["-eux", "-c", "docker build --pull --force-rm -t #{target.name} #{context}"],
+          ["-eux", "-c", "docker build --force-rm -t #{target.name} #{context}"],
           into: IO.stream(:stdio, :line)
         )
 

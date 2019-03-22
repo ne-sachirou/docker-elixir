@@ -55,17 +55,20 @@ defmodule Main do
             [
               for(
                 erlang <- conf().erlang.versions,
-                do: "docker push nesachirou/erlang:#{erlang.major_version}"
+                tag = erlang.major_version,
+                do: "docker push nesachirou/erlang:#{tag}"
               ),
               "docker push nesachirou/erlang:latest",
               for(
                 elixir <- conf().elixir.versions,
-                do: "docker push nesachirou/elixir:#{elixir.major_version}"
+                erlang <- conf().erlang.versions,
+                tag = "#{elixir.major_version}_erl#{erlang.major_version}",
+                do: "docker push nesachirou/elixir:#{tag}"
               ),
               "docker push nesachirou/elixir:latest"
             ]
             |> List.flatten()
-            |> Enum.join("")
+            |> Enum.join("\n")
         )
       ]
     ])
@@ -91,7 +94,10 @@ defmodule Main do
               how: {EEx, binding()}
             ),
             docker_image("nesachirou/#{lang}:#{tag}",
-              depends: [{:file, "#{dir}/Dockerfile"}],
+              depends: [
+                {:file, "#{dir}/Dockerfile"},
+                {:docker_image, "nesachirou/erlang:#{erlang.major_version}"}
+              ],
               context: dir
             ),
             cmd("test #{dir}",
@@ -158,7 +164,10 @@ defmodule Main do
               how: {EEx, binding()}
             ),
             docker_image("nesachirou/#{lang}:#{tag}",
-              depends: [{:file, "#{dir}/Dockerfile"}],
+              depends: [
+                {:file, "#{dir}/Dockerfile"},
+                {:docker_image, "nesachirou/erlang:#{erlang.major_version}"}
+              ],
               context: dir
             ),
             cmd("test #{dir}",
@@ -286,7 +295,10 @@ defmodule Main do
               how: {EEx, binding()}
             ),
             docker_image("nesachirou/#{lang}:#{tag}",
-              depends: [{:file, "#{dir}/Dockerfile"}],
+              depends: [
+                {:file, "#{dir}/Dockerfile"},
+                {:docker_image, "nesachirou/erlang:#{erlang.major_version}"}
+              ],
               context: dir
             ),
             cmd("test #{dir}",
@@ -352,7 +364,10 @@ defmodule Main do
               how: {EEx, binding()}
             ),
             docker_image("nesachirou/#{lang}:#{tag}",
-              depends: [{:file, "#{dir}/Dockerfile"}],
+              depends: [
+                {:file, "#{dir}/Dockerfile"},
+                {:docker_image, "nesachirou/erlang:#{erlang.major_version}"}
+              ],
               context: dir
             ),
             cmd("test #{dir}",
@@ -407,7 +422,7 @@ defmodule Main do
       erlang: %{
         versions: [
           %{version: "20.3.8.20", major_version: "20"},
-          %{version: "21.3", major_version: "21"}
+          %{version: "21.3.2", major_version: "21"}
         ],
         latest: "21"
       },
