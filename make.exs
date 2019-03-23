@@ -83,14 +83,14 @@ defmodule Main do
                 Enum.reject(
                   [
                     {:file, "#{dir}/Dockerfile"},
-                    if(:erlang == lang,
-                      do: nil,
-                      else: {:docker_image, "nesachirou/erlang:#{erlang.major_version}"}
+                    if(:erlang != lang,
+                      do: {:docker_image, "nesachirou/erlang:#{erlang.major_version}"}
                     )
                   ],
                   &is_nil/1
                 ),
-              context: dir
+              context: dir,
+              pull?: :erlang == lang
             ),
             cmd("test #{dir}",
               depends: [

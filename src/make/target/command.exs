@@ -1,8 +1,6 @@
 defmodule Make.Target.Command do
   @moduledoc false
 
-  require Logger
-
   defstruct name: "",
             desc: "",
             status: :none,

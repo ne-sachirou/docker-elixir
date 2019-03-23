@@ -1,13 +1,12 @@
 defmodule Make.Target.DockerImage do
   @moduledoc false
 
-  require Logger
-
   defstruct name: "",
             desc: "",
             status: :none,
             depends: [],
-            context: nil
+            context: nil,
+            pull?: false
 
   def type, do: :docker_image
 
@@ -21,15 +20,21 @@ defmodule Make.Target.DockerImage do
     end
 
     def create(target) do
-      context = target.context || "."
-
-      {_, 0} =
-        System.cmd(
-          "sh",
-          ["-eux", "-c", "docker build --force-rm -t #{target.name} #{context}"],
-          into: IO.stream(:stdio, :line)
+      cmd =
+        Enum.join(
+          [
+            "docker",
+            "build",
+            "--force-rm",
+            if(target.pull?, do: "--pull"),
+            "-t",
+            target.name,
+            target.context || "."
+          ],
+          " "
         )
 
+      {_, 0} = System.cmd("sh", ["-eux", "-c", cmd], into: IO.stream(:stdio, :line))
       target
     end
   end
