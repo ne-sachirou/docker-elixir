@@ -7,6 +7,8 @@ for file <- File.ls!(Path.join(__DIR__, "src")),
 defmodule Main do
   @moduledoc false
 
+  alias Make.Target
+
   use Make
 
   def main(argv) do
@@ -36,11 +38,7 @@ defmodule Main do
 
   def targets do
     Enum.concat([
-      clojerl_targets(),
-      elixir_targets(),
-      erlang_targets(),
-      joxa_targets(),
-      lfe_targets(),
+      Enum.flat_map(~w[clojerl elixir erlang joxa lfe]a, &lang_targets/1),
       [
         phony("all",
           desc: "Build all Dockerfile & images.",
@@ -52,52 +50,46 @@ defmodule Main do
           desc: "Publish Docker images to DockerHub.",
           depends: [{:phony, "elixir"}, {:phony, "erlang"}],
           cmd:
-            [
-              for(
-                erlang <- conf().erlang.versions,
-                tag = erlang.major_version,
-                do: "docker push nesachirou/erlang:#{tag}"
-              ),
-              "docker push nesachirou/erlang:latest",
-              for(
-                elixir <- conf().elixir.versions,
-                erlang <- conf().erlang.versions,
-                tag = "#{elixir.major_version}_erl#{erlang.major_version}",
-                do: "docker push nesachirou/elixir:#{tag}"
-              ),
-              "docker push nesachirou/elixir:latest"
-            ]
-            |> List.flatten()
+            ~w[erlang elixir]a
+            |> Enum.flat_map(fn lang ->
+              (lang |> versions_of() |> Enum.map(&"docker push nesachirou/#{lang}:#{&1.tag}")) ++
+                ["docker push nesachirou/#{lang}:latest"]
+            end)
             |> Enum.join("\n")
         )
       ]
     ])
   end
 
-  def clojerl_targets do
-    lang = :clojerl
-    lang_natural = "Clojerl"
-    lang_short = "clje"
-
+  @spec lang_targets(atom) :: [Target.t()]
+  defp lang_targets(lang) do
     targets =
-      for erlang <- conf().erlang.versions,
-          clojerl <- conf()[lang].versions,
-          dir = "#{lang_short}_erl#{erlang.major_version}",
-          tag = "#{clojerl.major_version}_erl#{erlang.major_version}",
+      for version <- versions_of(lang),
+          erlang = version.erlang,
+          target_lang = version[lang],
+          dir = version.dir,
+          tag = version.tag,
           target <- [
             file("#{dir}/Dockerfile",
               depends: [{:file, "Dockerfile.#{lang}"}],
-              how: {EEx, binding()}
+              how: {EEx, Map.to_list(version)}
             ),
             file("#{dir}/container-structure-test.yml",
               depends: [{:file, "container-structure-test.#{lang}.yml"}],
-              how: {EEx, binding()}
+              how: {EEx, Map.to_list(version)}
             ),
             docker_image("nesachirou/#{lang}:#{tag}",
-              depends: [
-                {:file, "#{dir}/Dockerfile"},
-                {:docker_image, "nesachirou/erlang:#{erlang.major_version}"}
-              ],
+              depends:
+                Enum.reject(
+                  [
+                    {:file, "#{dir}/Dockerfile"},
+                    if(:erlang == lang,
+                      do: nil,
+                      else: {:docker_image, "nesachirou/erlang:#{erlang.major_version}"}
+                    )
+                  ],
+                  &is_nil/1
+                ),
               context: dir
             ),
             cmd("test #{dir}",
@@ -115,331 +107,120 @@ defmodule Main do
             ),
             phony("#{lang}:#{tag}",
               desc:
-                "#{lang_natural} #{clojerl.major_version}, Erlang/TOP #{erlang.major_version}",
+                "#{version.natural_name} #{target_lang.major_version}" <>
+                  if(:erlang == lang, do: "", else: ", Erlang/TOP #{erlang.major_version}"),
               depends: [{:docker_image, "nesachirou/#{lang}:#{tag}"}, {:cmd, "test #{dir}"}]
             )
           ],
           do: target
 
-    [
-      cmd("#{lang}:latest",
-        depends: [{:phony, "#{lang}:#{conf()[lang].latest}_erl#{conf().erlang.latest}"}],
-        cmd:
-          "docker tag nesachirou/#{lang}:#{conf()[lang].latest}_erl#{conf().erlang.latest} nesachirou/#{
-            lang
-          }:latest"
-      ),
-      phony(to_string(lang),
-        desc: lang_natural,
-        depends: [
-          {:cmd, "#{lang}:latest"}
-          | for(
-              erlang <- conf().erlang.versions,
-              clojerl <- conf()[lang].versions,
-              do: {:phony, "#{lang}:#{clojerl.major_version}_erl#{erlang.major_version}"}
-            )
-        ]
-      )
-      | targets
-    ]
-  end
+    lang_conf = conf()[lang]
 
-  def elixir_targets do
-    lang = :elixir
-    lang_natural = "Elixir"
-    lang_short = "ex"
-
-    targets =
-      for erlang <- conf().erlang.versions,
-          elixir <- conf()[lang].versions,
-          dir = "#{lang_short}#{elixir.major_version}_erl#{erlang.major_version}",
-          tag = "#{elixir.major_version}_erl#{erlang.major_version}",
-          target <- [
-            file("#{dir}/Dockerfile",
-              depends: [{:file, "Dockerfile.#{lang}"}],
-              how: {EEx, binding()}
-            ),
-            file("#{dir}/container-structure-test.yml",
-              depends: [{:file, "container-structure-test.#{lang}.yml"}],
-              how: {EEx, binding()}
-            ),
-            docker_image("nesachirou/#{lang}:#{tag}",
-              depends: [
-                {:file, "#{dir}/Dockerfile"},
-                {:docker_image, "nesachirou/erlang:#{erlang.major_version}"}
-              ],
-              context: dir
-            ),
-            cmd("test #{dir}",
-              depends: [
-                {:file, "#{dir}/Dockerfile"},
-                {:file, "#{dir}/container-structure-test.yml"},
-                {:docker_image, "nesachirou/#{lang}:#{tag}"}
-              ],
-              cmd: """
-              hadolint #{dir}/Dockerfile
-              container-structure-test test \
-                --image nesachirou/#{lang}:#{tag} \
-                --config #{dir}/container-structure-test.yml
-              """
-            ),
-            phony("#{lang}:#{tag}",
-              desc: "#{lang_natural} #{elixir.major_version}, Erlang/OTP #{erlang.major_version}",
-              depends: [{:docker_image, "nesachirou/#{lang}:#{tag}"}, {:cmd, "test #{dir}"}]
-            )
-          ],
-          do: target
+    latest_tag =
+      Enum.find(versions_of(lang), &(&1[lang].major_version == lang_conf.latest_major_version)).tag
 
     [
       cmd("#{lang}:latest",
-        depends: [{:phony, "#{lang}:#{conf()[lang].latest}_erl#{conf().erlang.latest}"}],
-        cmd:
-          "docker tag nesachirou/#{lang}:#{conf()[lang].latest}_erl#{conf().erlang.latest} nesachirou/#{
-            lang
-          }:latest"
+        depends: [{:phony, "#{lang}:#{latest_tag}"}],
+        cmd: "docker tag nesachirou/#{lang}:#{latest_tag} nesachirou/#{lang}:latest"
       ),
       phony(to_string(lang),
-        desc: lang_natural,
+        desc: lang_conf.natural_name,
         depends: [
           {:cmd, "#{lang}:latest"}
-          | for(
-              erlang <- conf().erlang.versions,
-              elixir <- conf()[lang].versions,
-              do: {:phony, "#{lang}:#{elixir.major_version}_erl#{erlang.major_version}"}
-            )
+          | for(version <- versions_of(lang), do: {:phony, "#{lang}:#{version.tag}"})
         ]
       )
-      | targets
-    ]
+    ] ++ targets
   end
 
-  def erlang_targets do
-    lang = :erlang
-    lang_natural = "Erlang/OTP"
-    lang_short = "erl"
+  defp versions_of_p(:erlang = lang) do
+    lang_conf = conf()[lang]
 
-    targets =
-      for erlang <- conf()[lang].versions,
-          dir = "#{lang_short}#{erlang.major_version}",
-          tag = erlang.major_version,
-          target <- [
-            file("#{dir}/Dockerfile",
-              depends: [{:file, "Dockerfile.#{lang}"}],
-              how: {EEx, binding()}
-            ),
-            file("#{dir}/container-structure-test.yml",
-              depends: [{:file, "container-structure-test.#{lang}.yml"}],
-              how: {EEx, binding()}
-            ),
-            docker_image("nesachirou/#{lang}:#{tag}",
-              depends: [{:file, "#{dir}/Dockerfile"}],
-              context: dir
-            ),
-            cmd("test #{dir}",
-              depends: [
-                {:file, "#{dir}/Dockerfile"},
-                {:file, "#{dir}/container-structure-test.yml"},
-                {:docker_image, "nesachirou/#{lang}:#{tag}"}
-              ],
-              cmd: """
-              hadolint #{dir}/Dockerfile
-              container-structure-test test \
-                --image nesachirou/#{lang}:#{tag} \
-                --config #{dir}/container-structure-test.yml
-              """
-            ),
-            phony("#{lang}:#{tag}",
-              desc: "#{lang_natural} #{erlang.major_version}",
-              depends: [{:docker_image, "nesachirou/#{lang}:#{tag}"}, {:cmd, "test #{dir}"}]
-            )
-          ],
-          do: target
+    for target_lang <- lang_conf.versions do
+      dir = "#{lang_conf.short_name}#{target_lang.major_version}"
+      tag = docker_image_tag(target_lang, nil)
 
-    [
-      cmd("#{lang}:latest",
-        depends: [{:phony, "#{lang}:#{conf()[lang].latest}"}],
-        cmd: "docker tag nesachirou/#{lang}:#{conf()[lang].latest} nesachirou/#{lang}:latest"
-      ),
-      phony(to_string(lang),
-        desc: lang_natural,
-        depends: [
-          {:cmd, "#{lang}:latest"}
-          | for(
-              erlang <- conf()[lang].versions,
-              do: {:phony, "#{lang}:#{erlang.major_version}"}
-            )
-        ]
-      )
-      | targets
-    ]
+      %{dir: dir, tag: tag}
+      |> Map.merge(Map.delete(lang_conf, :versions))
+      |> Map.merge(%{:lang => lang, lang => target_lang})
+    end
   end
 
-  def joxa_targets do
-    lang = :joxa
-    lang_natural = "Joxa"
-    lang_short = "jxa"
+  defp versions_of_p(lang) do
+    lang_conf = conf()[lang]
 
-    targets =
-      for erlang <- conf().erlang.versions,
-          joxa <- conf()[lang].versions,
-          erlang.major_version != "20",
-          dir = "#{lang_short}_erl#{erlang.major_version}",
-          tag = "#{joxa.major_version}_erl#{erlang.major_version}",
-          target <- [
-            file("#{dir}/Dockerfile",
-              depends: [{:file, "Dockerfile.#{lang}"}],
-              how: {EEx, binding()}
-            ),
-            file("#{dir}/container-structure-test.yml",
-              depends: [{:file, "container-structure-test.#{lang}.yml"}],
-              how: {EEx, binding()}
-            ),
-            docker_image("nesachirou/#{lang}:#{tag}",
-              depends: [
-                {:file, "#{dir}/Dockerfile"},
-                {:docker_image, "nesachirou/erlang:#{erlang.major_version}"}
-              ],
-              context: dir
-            ),
-            cmd("test #{dir}",
-              depends: [
-                {:file, "#{dir}/Dockerfile"},
-                {:file, "#{dir}/container-structure-test.yml"},
-                {:docker_image, "nesachirou/#{lang}:#{tag}"}
-              ],
-              cmd: """
-              hadolint #{dir}/Dockerfile
-              container-structure-test test \
-                --image nesachirou/#{lang}:#{tag} \
-                --config #{dir}/container-structure-test.yml
-              """
-            ),
-            phony("#{lang}:#{tag}",
-              desc: "#{lang_natural} #{joxa.major_version}, Erlang/TOP #{erlang.major_version}",
-              depends: [{:docker_image, "nesachirou/#{lang}:#{tag}"}, {:cmd, "test #{dir}"}]
-            )
-          ],
-          do: target
+    for erlang <- conf().erlang.versions,
+        target_lang <- lang_conf.versions do
+      dir =
+        if "HEAD" == target_lang.major_version,
+          do: "#{lang_conf.short_name}_erl#{erlang.major_version}",
+          else: "#{lang_conf.short_name}#{target_lang.major_version}_erl#{erlang.major_version}"
 
-    [
-      cmd("#{lang}:latest",
-        depends: [{:phony, "#{lang}:#{conf()[lang].latest}_erl#{conf().erlang.latest}"}],
-        cmd:
-          "docker tag nesachirou/#{lang}:#{conf()[lang].latest}_erl#{conf().erlang.latest} nesachirou/#{
-            lang
-          }:latest"
-      ),
-      phony(to_string(lang),
-        desc: lang_natural,
-        depends: [
-          {:cmd, "#{lang}:latest"}
-          | for(
-              erlang <- conf().erlang.versions,
-              joxa <- conf()[lang].versions,
-              do: {:phony, "#{lang}:#{joxa.major_version}_erl#{erlang.major_version}"}
-            )
-        ]
-      )
-      | targets
-    ]
+      tag = docker_image_tag(erlang, target_lang)
+
+      %{dir: dir, tag: tag}
+      |> Map.merge(Map.delete(lang_conf, :versions))
+      |> put_in([:erlang], erlang)
+      |> Map.merge(%{:lang => lang, lang => target_lang})
+    end
   end
 
-  def lfe_targets do
-    lang = :lfe
-    lang_natural = "LFE"
-    lang_short = "lfe"
+  @spec docker_image_tag(map | binary, map | binary | nil) :: binary
+  defp docker_image_tag(%{major_version: erlang_major_version}, target_lang),
+    do: docker_image_tag(erlang_major_version, target_lang)
 
-    targets =
-      for erlang <- conf().erlang.versions,
-          lfe <- conf()[lang].versions,
-          dir = "#{lang_short}_erl#{erlang.major_version}",
-          tag = "#{lfe.major_version}_erl#{erlang.major_version}",
-          target <- [
-            file("#{dir}/Dockerfile",
-              depends: [{:file, "Dockerfile.#{lang}"}],
-              how: {EEx, binding()}
-            ),
-            file("#{dir}/container-structure-test.yml",
-              depends: [{:file, "container-structure-test.#{lang}.yml"}],
-              how: {EEx, binding()}
-            ),
-            docker_image("nesachirou/#{lang}:#{tag}",
-              depends: [
-                {:file, "#{dir}/Dockerfile"},
-                {:docker_image, "nesachirou/erlang:#{erlang.major_version}"}
-              ],
-              context: dir
-            ),
-            cmd("test #{dir}",
-              depends: [
-                {:file, "#{dir}/Dockerfile"},
-                {:file, "#{dir}/container-structure-test.yml"},
-                {:docker_image, "nesachirou/#{lang}:#{tag}"}
-              ],
-              cmd: """
-              hadolint #{dir}/Dockerfile
-              container-structure-test test \
-                --image nesachirou/#{lang}:#{tag} \
-                --config #{dir}/container-structure-test.yml
-              """
-            ),
-            phony("#{lang}:#{tag}",
-              desc: "#{lang_natural} #{lfe.major_version}, Erlang/TOP #{erlang.major_version}",
-              depends: [{:docker_image, "nesachirou/#{lang}:#{tag}"}, {:cmd, "test #{dir}"}]
-            )
-          ],
-          do: target
+  defp docker_image_tag(erlang, %{major_version: target_lang_major_version}),
+    do: docker_image_tag(erlang, target_lang_major_version)
 
-    [
-      cmd("#{lang}:latest",
-        depends: [{:phony, "#{lang}:#{conf()[lang].latest}_erl#{conf().erlang.latest}"}],
-        cmd:
-          "docker tag nesachirou/#{lang}:#{conf()[lang].latest}_erl#{conf().erlang.latest} nesachirou/#{
-            lang
-          }:latest"
-      ),
-      phony(to_string(lang),
-        desc: lang_natural,
-        depends: [
-          {:cmd, "#{lang}:latest"}
-          | for(
-              erlang <- conf().erlang.versions,
-              lfe <- conf()[lang].versions,
-              do: {:phony, "#{lang}:#{lfe.major_version}_erl#{erlang.major_version}"}
-            )
-        ]
-      )
-      | targets
-    ]
-  end
+  defp docker_image_tag(erlang_major_version, nil), do: erlang_major_version
+
+  defp docker_image_tag(erlang_major_version, target_lang_major_version),
+    do: "#{target_lang_major_version}_erl#{erlang_major_version}"
+
+  @spec versions_of(atom) :: [term]
+  def versions_of(:joxa),
+    do: :joxa |> versions_of_p() |> Enum.reject(&(&1.erlang.major_version == "20"))
+
+  def versions_of(lang), do: versions_of_p(lang)
 
   def conf do
     %{
       clojerl: %{
         versions: [%{version: "35f0837225e9ea6cd79f8ba556030f953cadc6ce", major_version: "HEAD"}],
-        latest: "HEAD"
+        latest_major_version: "HEAD",
+        natural_name: "Clojerl",
+        short_name: "clje"
       },
       erlang: %{
         versions: [
           %{version: "20.3.8.20", major_version: "20"},
           %{version: "21.3.2", major_version: "21"}
         ],
-        latest: "21"
+        latest_major_version: "21",
+        natural_name: "Erlang/OTP",
+        short_name: "erl"
       },
       elixir: %{
         versions: [
           %{version: "1.7.4", major_version: "1.7"},
           %{version: "1.8.1", major_version: "1.8"}
         ],
-        latest: "1.8"
+        latest_major_version: "1.8",
+        natural_name: "Elixir",
+        short_name: "ex"
       },
       joxa: %{
         versions: [%{version: "8a8594e9c81737be4c81af5a4a8d628211f2f510", major_version: "HEAD"}],
-        latest: "HEAD"
+        latest_major_version: "HEAD",
+        natural_name: "Joxa",
+        short_name: "jxa"
       },
       lfe: %{
         versions: [%{version: "ea62f924b7abbe2a0ff65e27be47acb7f452bc38", major_version: "HEAD"}],
-        latest: "HEAD"
+        latest_major_version: "HEAD",
+        natural_name: "LFE",
+        short_name: "lfe"
       }
     }
   end

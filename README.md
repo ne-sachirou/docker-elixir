@@ -33,6 +33,7 @@ Requirements :
 * [container-structure-test](https://github.com/GoogleContainerTools/container-structure-test)
 * [Docker](https://www.docker.com/)
 * [Elixir](https://elixir-lang.org/)
+* [jq](https://stedolan.github.io/jq/)
 * [yamllint](https://github.com/adrienverge/yamllint)
 
 ```sh
