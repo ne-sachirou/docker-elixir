@@ -36,29 +36,32 @@ defmodule Main do
     end
   end
 
+  @spec targets :: [Target.t()]
   def targets do
-    Enum.concat([
-      Enum.flat_map(~w[clojerl elixir erlang joxa lfe]a, &lang_targets/1),
-      [
-        phony("all",
-          desc: "Build all Dockerfile & images.",
-          depends:
-            [{:cmd, "yamllint *.yml .*.yaml .yamllint"}, {:cmd, "mix format --check-formatted"}] ++
-              (conf() |> Map.keys() |> Enum.map(&{:phony, to_string(&1)}))
-        ),
-        cmd("publish",
-          desc: "Publish Docker images to DockerHub.",
-          depends: [{:phony, "elixir"}, {:phony, "erlang"}],
-          cmd:
-            ~w[erlang elixir]a
-            |> Enum.flat_map(fn lang ->
-              (lang |> versions_of() |> Enum.map(&"docker push nesachirou/#{lang}:#{&1.tag}")) ++
-                ["docker push nesachirou/#{lang}:latest"]
-            end)
-            |> Enum.join("\n")
-        )
-      ]
-    ])
+    langs = Map.keys(conf())
+
+    [
+      phony("all",
+        desc: "Build all Dockerfile & images.",
+        depends: [
+          {:cmd, "yamllint *.yml .*.yaml .yamllint"},
+          {:cmd, "mix format --check-formatted"}
+          | Enum.map(langs, &{:phony, to_string(&1)})
+        ]
+      ),
+      cmd("publish",
+        desc: "Publish Docker images to DockerHub.",
+        depends: [{:phony, "elixir"}, {:phony, "erlang"}],
+        cmd:
+          for(
+            lang <- ~w[erlang elixir]a,
+            version <- versions_of(lang) ++ [%{tag: "latest"}],
+            into: "",
+            do: "docker push nesachirou/#{lang}:#{version.tag}\n"
+          )
+      )
+      | Enum.flat_map(langs, &lang_targets/1)
+    ]
   end
 
   @spec lang_targets(atom) :: [Target.t()]
@@ -131,7 +134,8 @@ defmodule Main do
           | for(version <- versions_of(lang), do: {:phony, "#{lang}:#{version.tag}"})
         ]
       )
-    ] ++ targets
+      | targets
+    ]
   end
 
   defp versions_of_p(:erlang = lang) do
