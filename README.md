@@ -18,14 +18,14 @@ Supported tags and respective `Dockerfile` links
 
 ### nesachirou/clojerl
 * `HEAD_erl20` [(clje_erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/clje_erl20/Dockerfile)
-* `HEAD_erl21` [(clje_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/clje_erl21/Dockerfile)
+* `HEAD_erl21`, `latest` [(clje_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/clje_erl21/Dockerfile)
 
 ### nesachirou/joxa
-* `HEAD_erl21` [(jxa_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/jxa_erl21/Dockerfile)
+* `HEAD_erl21`, `latest` [(jxa_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/jxa_erl21/Dockerfile)
 
 ### nesachirou/lfe
 * `HEAD_erl20` [(lfe_erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/lfe_erl20/Dockerfile)
-* `HEAD_erl21` [(lfe_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/lfe_erl21/Dockerfile)
+* `HEAD_erl21`, `latest` [(lfe_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/lfe_erl21/Dockerfile)
 
 Build images
 --

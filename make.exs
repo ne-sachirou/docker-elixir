@@ -120,7 +120,13 @@ defmodule Main do
     lang_conf = conf()[lang]
 
     latest_tag =
-      Enum.find(versions_of(lang), &(&1[lang].major_version == lang_conf.latest_major_version)).tag
+      Enum.find(versions_of(lang), fn version ->
+        version[lang].major_version == lang_conf.latest_major_version and
+          if(lang == :erlang,
+            do: true,
+            else: version.erlang.major_version == conf().erlang.latest_major_version
+          )
+      end).tag
 
     [
       cmd("#{lang}:latest",
@@ -191,7 +197,7 @@ defmodule Main do
   def conf do
     %{
       clojerl: %{
-        versions: [%{version: "35f0837225e9ea6cd79f8ba556030f953cadc6ce", major_version: "HEAD"}],
+        versions: [%{version: "53842c62195eb36e683233f1a67eaf6318e47728", major_version: "HEAD"}],
         latest_major_version: "HEAD",
         natural_name: "Clojerl",
         short_name: "clje"
@@ -199,7 +205,7 @@ defmodule Main do
       erlang: %{
         versions: [
           %{version: "20.3.8.20", major_version: "20"},
-          %{version: "21.3.2", major_version: "21"}
+          %{version: "21.3.3", major_version: "21"}
         ],
         latest_major_version: "21",
         natural_name: "Erlang/OTP",

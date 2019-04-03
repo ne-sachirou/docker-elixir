@@ -11,8 +11,8 @@ RUN set -ex \
  && mkdir clojerl \
  && (cd clojerl \
  && git init \
- && git fetch --depth=1 https://github.com/clojerl/clojerl.git 35f0837225e9ea6cd79f8ba556030f953cadc6ce \
- && git checkout 35f0837225e9ea6cd79f8ba556030f953cadc6ce \
+ && git fetch --depth=1 https://github.com/clojerl/clojerl.git 53842c62195eb36e683233f1a67eaf6318e47728 \
+ && git checkout 53842c62195eb36e683233f1a67eaf6318e47728 \
  && rm -rf .git \
  && make) \
  && apk del --purge .build-deps \
