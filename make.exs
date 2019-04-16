@@ -22,6 +22,24 @@ defmodule Main do
       |> Enum.reject(&(&1.desc == ""))
       |> Enum.sort_by(& &1.name)
       |> Enum.each(&IO.puts("#{String.pad_trailing(&1.name, 24)}\t#{&1.desc}"))
+
+      dot_node = fn {type, name} ->
+        type = if(:phony == type, do: "", else: "#{type} :: ")
+        name = name |> String.replace(~r/["\n]/, " ") |> String.trim()
+        type <> name
+      end
+
+      dot =
+        "digraph make {\n" <>
+          for(
+            {target_ref, target} <- Make.targets(make_name),
+            dep_target_ref <- target.depends,
+            into: "",
+            do: ~s["#{dot_node.(dep_target_ref)}" -> "#{dot_node.(target_ref)}";\n]
+          ) <> "}"
+
+      File.write!("make.dot", dot)
+      {_, 0} = System.cmd("sh", ["-eu", "-c", "dot -T svg -o make.svg make.dot"])
     else
       target_refs = make_name |> Make.targets() |> Map.keys()
 
