@@ -197,7 +197,7 @@ defmodule Main do
   def conf do
     %{
       clojerl: %{
-        versions: [%{version: "53842c62195eb36e683233f1a67eaf6318e47728", major_version: "HEAD"}],
+        versions: [%{version: "0b994edabae5ac6882b8a0945489c548c8acda0a", major_version: "HEAD"}],
         latest_major_version: "HEAD",
         natural_name: "Clojerl",
         short_name: "clje"
@@ -205,7 +205,7 @@ defmodule Main do
       erlang: %{
         versions: [
           %{version: "20.3.8.20", major_version: "20"},
-          %{version: "21.3.3", major_version: "21"}
+          %{version: "21.3.5", major_version: "21"}
         ],
         latest_major_version: "21",
         natural_name: "Erlang/OTP",
