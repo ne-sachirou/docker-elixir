@@ -204,8 +204,8 @@ defmodule Main do
       },
       erlang: %{
         versions: [
-          %{version: "20.3.8.20", major_version: "20"},
-          %{version: "21.3.5", major_version: "21"}
+          %{version: "20.3.8.21", major_version: "20"},
+          %{version: "21.3.6", major_version: "21"}
         ],
         latest_major_version: "21",
         natural_name: "Erlang/OTP",
