@@ -1,7 +1,3 @@
-for file <- File.ls!(Path.join(__DIR__, "make")),
-    String.ends_with?(file, ".exs"),
-    do: Code.require_file(file, Path.join(__DIR__, "make"))
-
 defmodule Make do
   @moduledoc false
 

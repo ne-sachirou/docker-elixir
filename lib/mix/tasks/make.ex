@@ -1,17 +1,18 @@
-#! /usr/bin/env elixir
+defmodule Mix.Tasks.Make do
+  @moduledoc """
+  Make.
 
-for file <- File.ls!(Path.join(__DIR__, "src")),
-    String.ends_with?(file, ".exs"),
-    do: Code.require_file(file, Path.join(__DIR__, "src"))
+  See `mix make help`.
+  """
 
-defmodule Main do
-  @moduledoc false
+  @shortdoc "Make. See `mix make help`."
 
   alias Make.Target
 
   use Make
+  use Mix.Task
 
-  def main(argv) do
+  def run(argv) do
     make_name = :docker_elixir
     Make.up(make_name, targets())
 
@@ -37,7 +38,7 @@ defmodule Main do
   end
 
   @spec targets :: [Target.t()]
-  def targets do
+  defp targets do
     langs = Map.keys(conf())
 
     [
@@ -45,7 +46,7 @@ defmodule Main do
         desc: "Build all Dockerfile & images.",
         depends: [
           {:cmd, "yamllint *.yml .*.yaml .yamllint"},
-          {:cmd, "mix format --check-formatted"}
+          cmd("mix format --check-formatted", cwd: ".")
           | Enum.map(langs, &{:phony, to_string(&1)})
         ]
       ),
@@ -189,51 +190,10 @@ defmodule Main do
     do: "#{target_lang_major_version}_erl#{erlang_major_version}"
 
   @spec versions_of(atom) :: [term]
-  def versions_of(:joxa),
+  defp versions_of(:joxa),
     do: :joxa |> versions_of_p() |> Enum.reject(&(&1.erlang.major_version == "20"))
 
-  def versions_of(lang), do: versions_of_p(lang)
+  defp versions_of(lang), do: versions_of_p(lang)
 
-  def conf do
-    %{
-      clojerl: %{
-        versions: [%{version: "0b994edabae5ac6882b8a0945489c548c8acda0a", major_version: "HEAD"}],
-        latest_major_version: "HEAD",
-        natural_name: "Clojerl",
-        short_name: "clje"
-      },
-      erlang: %{
-        versions: [
-          %{version: "20.3.8.21", major_version: "20"},
-          %{version: "21.3.6", major_version: "21"}
-        ],
-        latest_major_version: "21",
-        natural_name: "Erlang/OTP",
-        short_name: "erl"
-      },
-      elixir: %{
-        versions: [
-          %{version: "1.7.4", major_version: "1.7"},
-          %{version: "1.8.1", major_version: "1.8"}
-        ],
-        latest_major_version: "1.8",
-        natural_name: "Elixir",
-        short_name: "ex"
-      },
-      joxa: %{
-        versions: [%{version: "8a8594e9c81737be4c81af5a4a8d628211f2f510", major_version: "HEAD"}],
-        latest_major_version: "HEAD",
-        natural_name: "Joxa",
-        short_name: "jxa"
-      },
-      lfe: %{
-        versions: [%{version: "ea62f924b7abbe2a0ff65e27be47acb7f452bc38", major_version: "HEAD"}],
-        latest_major_version: "HEAD",
-        natural_name: "LFE",
-        short_name: "lfe"
-      }
-    }
-  end
+  defp conf, do: Application.get_env(:make, :langs)
 end
-
-Main.main(System.argv())

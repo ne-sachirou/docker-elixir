@@ -37,9 +37,9 @@ Requirements :
 * [yamllint](https://github.com/adrienverge/yamllint)
 
 ```sh
-./make.exs help
-./make.exs all
-./make.exs publish
+mix deps.get
+mix do compile, make help
+mix make all publish
 ```
 
 [Erlang Hub]: https://hub.docker.com/r/nesachirou/erlang/

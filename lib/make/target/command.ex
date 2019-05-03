@@ -5,7 +5,8 @@ defmodule Make.Target.Command do
             desc: "",
             status: :none,
             depends: [],
-            cmd: nil
+            cmd: nil,
+            cwd: nil
 
   def type, do: :cmd
 
@@ -14,7 +15,11 @@ defmodule Make.Target.Command do
 
     def create(target) do
       cmd = target.cmd || target.name
-      {_, 0} = System.cmd("sh", ["-eux", "-c", cmd], into: IO.stream(:stdio, :line))
+      cwd = target.cwd || :code.priv_dir(:make)
+
+      {_, 0} =
+        System.cmd("sh", ["-eux", "-c", "cd #{cwd} && #{cmd}"], into: IO.stream(:stdio, :line))
+
       target
     end
   end
