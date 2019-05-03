@@ -13,8 +13,10 @@ defmodule Make.Target.File do
 
   defimpl Make.Target do
     def updated_at(target) do
-      if File.exists?(target.name) do
-        File.stat!(target.name).mtime
+      name = Path.join(:code.priv_dir(:make), target.name)
+
+      if File.exists?(name) do
+        File.stat!(name).mtime
         |> NaiveDateTime.from_erl!()
         |> DateTime.from_naive!("Etc/UTC")
         |> DateTime.to_unix()
@@ -24,7 +26,8 @@ defmodule Make.Target.File do
     end
 
     def create(target) do
-      dirname = Path.dirname(target.name)
+      name = Path.join(:code.priv_dir(:make), target.name)
+      dirname = Path.dirname(name)
 
       if File.exists?(dirname) do
         nil
@@ -35,19 +38,20 @@ defmodule Make.Target.File do
 
       case target.how do
         {EEx, bindings} ->
-          Logger.info("File creating: #{target.name}")
+          Logger.info("File creating: #{name}")
           {:file, src} = Enum.find(target.depends, &(elem(&1, 0) == :file))
-          File.write!(target.name, EEx.eval_file(src, bindings))
+          src = Path.join(:code.priv_dir(:make), src)
+          File.write!(name, EEx.eval_file(src, bindings))
 
         how when is_function(how) ->
-          Logger.info("File creating: #{target.name}")
+          Logger.info("File creating: #{name}")
           how.(target)
 
         nil ->
           nil
       end
 
-      unless File.exists?(target.name), do: raise("Failed to create file: #{target.name}")
+      unless File.exists?(name), do: raise("Failed to create file: #{target.name}")
       target
     end
   end

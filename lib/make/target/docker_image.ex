@@ -20,6 +20,8 @@ defmodule Make.Target.DockerImage do
     end
 
     def create(target) do
+      context = Path.join(:code.priv_dir(:make), target.context || ".")
+
       cmd =
         Enum.join(
           [
@@ -29,7 +31,7 @@ defmodule Make.Target.DockerImage do
             if(target.pull?, do: "--pull"),
             "-t",
             target.name,
-            target.context || "."
+            context
           ],
           " "
         )

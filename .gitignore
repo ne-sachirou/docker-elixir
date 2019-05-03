@@ -1,7 +1,7 @@
 
 
-# Created by https://www.gitignore.io/api/elixir
-# Edit at https://www.gitignore.io/?templates=elixir
+# Created by https://www.gitignore.io/api/elixir,erlang
+# Edit at https://www.gitignore.io/?templates=elixir,erlang
 
 ### Elixir ###
 /_build
@@ -17,4 +17,16 @@ erl_crash.dump
 
 ### Elixir Patch ###
 
-# End of https://www.gitignore.io/api/elixir
+### Erlang ###
+.eunit
+deps
+*.o
+*.plt
+ebin/*.beam
+rel/example_project
+.concrete/DEV_MODE
+.rebar
+
+# End of https://www.gitignore.io/api/elixir,erlang
+
+/docs
