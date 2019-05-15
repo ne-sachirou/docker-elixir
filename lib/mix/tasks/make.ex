@@ -37,6 +37,20 @@ defmodule Mix.Tasks.Make do
     end
   end
 
+  defp conf, do: Application.get_env(:make, :langs)
+
+  @spec docker_image_tag(map | binary, map | binary | nil) :: binary
+  defp docker_image_tag(%{major_version: erlang_major_version}, target_lang),
+    do: docker_image_tag(erlang_major_version, target_lang)
+
+  defp docker_image_tag(erlang, %{major_version: target_lang_major_version}),
+    do: docker_image_tag(erlang, target_lang_major_version)
+
+  defp docker_image_tag(erlang_major_version, nil), do: erlang_major_version
+
+  defp docker_image_tag(erlang_major_version, target_lang_major_version),
+    do: "#{target_lang_major_version}_erl#{erlang_major_version}"
+
   @spec targets :: [Target.t()]
   defp targets do
     langs = Map.keys(conf())
@@ -145,6 +159,15 @@ defmodule Mix.Tasks.Make do
     ]
   end
 
+  # NOTE: To reject old version,
+  #
+  # ```
+  # defp versions_of(:joxa = lang),
+  #   do: lang |> versions_of_p() |> Enum.reject(&(&1.erlang.major_version == "20"))
+  # ```
+  @spec versions_of(atom) :: [term]
+  defp versions_of(lang), do: versions_of_p(lang)
+
   defp versions_of_p(:erlang = lang) do
     lang_conf = conf()[lang]
 
@@ -176,24 +199,4 @@ defmodule Mix.Tasks.Make do
       |> Map.merge(%{:lang => lang, lang => target_lang})
     end
   end
-
-  @spec docker_image_tag(map | binary, map | binary | nil) :: binary
-  defp docker_image_tag(%{major_version: erlang_major_version}, target_lang),
-    do: docker_image_tag(erlang_major_version, target_lang)
-
-  defp docker_image_tag(erlang, %{major_version: target_lang_major_version}),
-    do: docker_image_tag(erlang, target_lang_major_version)
-
-  defp docker_image_tag(erlang_major_version, nil), do: erlang_major_version
-
-  defp docker_image_tag(erlang_major_version, target_lang_major_version),
-    do: "#{target_lang_major_version}_erl#{erlang_major_version}"
-
-  @spec versions_of(atom) :: [term]
-  defp versions_of(:joxa),
-    do: :joxa |> versions_of_p() |> Enum.reject(&(&1.erlang.major_version == "20"))
-
-  defp versions_of(lang), do: versions_of_p(lang)
-
-  defp conf, do: Application.get_env(:make, :langs)
 end

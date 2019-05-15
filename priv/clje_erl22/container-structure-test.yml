@@ -7,10 +7,10 @@ commandTests:
       - -noshell
       - -eval
       - io:format("~s~n", [erlang:system_info(otp_release)]), init:stop().
-    expectedOutput: ["20"]
-  - name: "LFE executable"
-    command: lfe
+    expectedOutput: ["22"]
+  - name: "Clojerl executable"
+    command: clojerl
     args:
       - -e
-      - "(pp (erlang:system_info 'otp_release))"
-    expectedOutput: ['"20"']
+      - (print (erlang/system_info :otp_release))
+    expectedOutput: ['"22"']

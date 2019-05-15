@@ -6,26 +6,27 @@ Supported tags and respective `Dockerfile` links
 --
 ### [nesachirou/erlang][Erlang Hub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/nesachirou/erlang.svg)][Erlang Hub]
-* `20` [(erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/erl20/Dockerfile)
-* `21`, `latest` [(erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/erl21/Dockerfile)
+* `21` [(erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl21/Dockerfile)
+* `22`, `latest` [(erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl22/Dockerfile)
 
 ### [nesachirou/elixir][Elixir Hub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/nesachirou/elixir.svg)][Elixir Hub]
-* `1.7_erl20` [(ex1.7_erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/ex1.7_erl20/Dockerfile)
-* `1.7_erl21` [(ex1.7_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/ex1.7_erl21/Dockerfile)
-* `1.8_erl20` [(ex1.8_erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/ex1.8_erl20/Dockerfile)
-* `1.8_erl21`, `latest` [(ex1.8_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/ex1.8_erl21/Dockerfile)
+* `1.7_erl21` [(ex1.7_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.7_erl21/Dockerfile)
+* `1.7_erl22` [(ex1.7_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.7_erl22/Dockerfile)
+* `1.8_erl21` [(ex1.8_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.8_erl21/Dockerfile)
+* `1.8_erl22`, `latest` [(ex1.8_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.8_erl22/Dockerfile)
 
 ### nesachirou/clojerl
-* `HEAD_erl20` [(clje_erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/clje_erl20/Dockerfile)
-* `HEAD_erl21`, `latest` [(clje_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/clje_erl21/Dockerfile)
+* `HEAD_erl21` [(clje_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/clje_erl21/Dockerfile)
+* `HEAD_erl22`, `latest` [(clje_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/clje_erl22/Dockerfile)
 
 ### nesachirou/joxa
-* `HEAD_erl21`, `latest` [(jxa_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/jxa_erl21/Dockerfile)
+* `HEAD_erl21` [(jxa_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/jxa_erl21/Dockerfile)
+* `HEAD_erl22`, `latest` [(jxa_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/jxa_erl22/Dockerfile)
 
 ### nesachirou/lfe
-* `HEAD_erl20` [(lfe_erl20/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/lfe_erl20/Dockerfile)
-* `HEAD_erl21`, `latest` [(lfe_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/lfe_erl21/Dockerfile)
+* `HEAD_erl21` [(lfe_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/lfe_erl21/Dockerfile)
+* `HEAD_erl22`, `latest` [(lfe_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/lfe_erl22/Dockerfile)
 
 Build images
 --
