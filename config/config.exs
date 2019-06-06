@@ -3,15 +3,15 @@ use Mix.Config
 config :make,
   langs: %{
     clojerl: %{
-      versions: [%{version: "e6de7d394b010f64bd8634970d4f939e6e7bc980", major_version: "HEAD"}],
+      versions: [%{version: "dbe33511e0c0f02affc57e1da51c3ed745d8773e", major_version: "HEAD"}],
       latest_major_version: "HEAD",
       natural_name: "Clojerl",
       short_name: "clje"
     },
     erlang: %{
       versions: [
-        %{version: "21.3.8.2", major_version: "21"},
-        %{version: "22.0.1", major_version: "22"}
+        %{version: "21.3.8.3", major_version: "21"},
+        %{version: "22.0.2", major_version: "22"}
       ],
       latest_major_version: "22",
       natural_name: "Erlang/OTP",
@@ -20,7 +20,8 @@ config :make,
     elixir: %{
       versions: [
         %{version: "1.7.4", major_version: "1.7"},
-        %{version: "1.8.2", major_version: "1.8"}
+        %{version: "1.8.2", major_version: "1.8"},
+        %{version: "1.9.0-rc.0", major_version: "1.9"}
       ],
       latest_major_version: "1.8",
       natural_name: "Elixir",

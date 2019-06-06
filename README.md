@@ -19,6 +19,8 @@ Erlang & Elixir Dockerfile, supports 2 major versions
 - `1.7_erl22` [(ex1.7_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.7_erl22/Dockerfile)
 - `1.8_erl21` [(ex1.8_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.8_erl21/Dockerfile)
 - `1.8_erl22`, `latest` [(ex1.8_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.8_erl22/Dockerfile)
+- `1.9_erl21` [(ex1.9_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.9_erl21/Dockerfile)
+- `1.9_erl22` [(ex1.9_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.9_erl22/Dockerfile)
 
 ### nesachirou/clojerl
 
