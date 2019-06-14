@@ -27,11 +27,11 @@ RUN set -ex \
  && ./otp_build autoconf \
  && ./configure \
     --build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
-    --enable-dynamic-ssl-lib \
-    --enable-native-libs \
-    --with-ssl=/usr/include \
     --disable-builtin-zlib \
+    --enable-dynamic-ssl-lib \
+    --enable-m64-build \
     --enable-sharing-preserving \
+    --with-ssl=/usr/include \
     --without-debugger \
     --without-et \
     --without-observer \

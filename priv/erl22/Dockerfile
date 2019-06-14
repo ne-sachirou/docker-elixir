@@ -21,17 +21,17 @@ RUN set -ex \
     unixodbc-dev \
     zlib-dev \
  && export PATH=/usr/lib/jvm/java-1.8-openjdk/bin:$PATH \
- && wget https://github.com/erlang/otp/archive/OTP-22.0.2.tar.gz \
- && tar xzvf OTP-22.0.2.tar.gz \
+ && wget https://github.com/erlang/otp/archive/OTP-22.0.3.tar.gz \
+ && tar xzvf OTP-22.0.3.tar.gz \
  && (cd otp-* \
  && ./otp_build autoconf \
  && ./configure \
     --build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
-    --enable-dynamic-ssl-lib \
-    --enable-native-libs \
-    --with-ssl=/usr/include \
     --disable-builtin-zlib \
+    --enable-dynamic-ssl-lib \
+    --enable-m64-build \
     --enable-sharing-preserving \
+    --with-ssl=/usr/include \
     --without-debugger \
     --without-et \
     --without-observer \
