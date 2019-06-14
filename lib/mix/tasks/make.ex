@@ -51,34 +51,6 @@ defmodule Mix.Tasks.Make do
   defp docker_image_tag(erlang_major_version, target_lang_major_version),
     do: "#{target_lang_major_version}_erl#{erlang_major_version}"
 
-  @spec targets :: [Target.t()]
-  defp targets do
-    langs = Map.keys(conf())
-
-    [
-      phony("all",
-        desc: "Build all Dockerfile & images.",
-        depends: [
-          {:cmd, "yamllint *.yml .*.yaml .yamllint"},
-          cmd("mix format --check-formatted", cwd: ".")
-          | Enum.map(langs, &{:phony, to_string(&1)})
-        ]
-      ),
-      cmd("publish",
-        desc: "Publish Docker images to DockerHub.",
-        depends: [{:phony, "elixir"}, {:phony, "erlang"}],
-        cmd:
-          for(
-            lang <- ~w[erlang elixir]a,
-            version <- versions_of(lang) ++ [%{tag: "latest"}],
-            into: "",
-            do: "docker push nesachirou/#{lang}:#{version.tag}\n"
-          )
-      )
-      | Enum.flat_map(langs, &lang_targets/1)
-    ]
-  end
-
   @spec lang_targets(atom) :: [Target.t()]
   defp lang_targets(lang) do
     targets =
@@ -156,6 +128,39 @@ defmodule Mix.Tasks.Make do
         ]
       )
       | targets
+    ]
+  end
+
+  @spec targets :: [Target.t()]
+  defp targets do
+    langs = Map.keys(conf())
+
+    [
+      file("README.md",
+        desc: "README.md",
+        depends: [{:file, "README.md.eex"}],
+        how: {EEx, Map.to_list(conf())}
+      ),
+      phony("all",
+        desc: "Build all Dockerfile & images.",
+        depends: [
+          {:cmd, "yamllint *.yml .*.yaml .yamllint"},
+          cmd("mix format --check-formatted", cwd: ".")
+          | Enum.map(langs, &{:phony, to_string(&1)})
+        ]
+      ),
+      cmd("publish",
+        desc: "Publish Docker images to DockerHub.",
+        depends: [{:phony, "elixir"}, {:phony, "erlang"}],
+        cmd:
+          for(
+            lang <- ~w[erlang elixir]a,
+            version <- versions_of(lang) ++ [%{tag: "latest"}],
+            into: "",
+            do: "docker push nesachirou/#{lang}:#{version.tag}\n"
+          )
+      )
+      | Enum.flat_map(langs, &lang_targets/1)
     ]
   end
 

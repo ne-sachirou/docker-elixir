@@ -87,6 +87,7 @@ defmodule Make.Session do
             rescue
               err ->
                 Logger.error("Failed: #{inspect(target_ref)}")
+                Logger.error(Exception.format(:error, err, __STACKTRACE__))
                 put_target(session.name, target_ref, put_in(target.status, :failed))
                 GenServer.reply(from, __MODULE__.target_status(session.name, target_ref))
                 reraise err, __STACKTRACE__
