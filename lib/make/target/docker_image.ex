@@ -20,7 +20,7 @@ defmodule Make.Target.DockerImage do
     end
 
     def create(target) do
-      context = Path.join(:code.priv_dir(:make), target.context || ".")
+      context = Path.relative_to_cwd(Path.join(:code.priv_dir(:make), target.context || "."))
 
       cmd =
         Enum.join(
