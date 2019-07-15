@@ -7,7 +7,7 @@ WORKDIR /root
 RUN set -ex \
  && apk add --no-cache -t .build-deps make \
  && wget https://github.com/elixir-lang/elixir/archive/v1.9.0.tar.gz \
- && tar xzvf v1.9.0.tar.gz \
+ && tar xzf v1.9.0.tar.gz \
  && (cd elixir-* \
  && make compile -j) \
  && mix "do" local.hex --force, local.rebar --force \

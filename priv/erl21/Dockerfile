@@ -22,7 +22,7 @@ RUN set -ex \
     zlib-dev \
  && export PATH=/usr/lib/jvm/java-1.8-openjdk/bin:$PATH \
  && wget https://github.com/erlang/otp/archive/OTP-21.3.8.6.tar.gz \
- && tar xzvf OTP-21.3.8.6.tar.gz \
+ && tar xzf OTP-21.3.8.6.tar.gz \
  && (cd otp-* \
  && ./otp_build autoconf \
  && ./configure \
