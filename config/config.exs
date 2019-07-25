@@ -20,7 +20,7 @@ config :make,
     elixir: %{
       versions: [
         %{version: "1.8.2", major_version: "1.8"},
-        %{version: "1.9.0", major_version: "1.9"}
+        %{version: "1.9.1", major_version: "1.9"}
       ],
       latest_major_version: "1.9",
       natural_name: "Elixir",
