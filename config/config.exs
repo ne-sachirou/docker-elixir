@@ -10,7 +10,7 @@ config :make,
     },
     erlang: %{
       versions: [
-        %{version: "21.3.8.6", major_version: "21"},
+        %{version: "21.3.8.7", major_version: "21"},
         %{version: "22.0.7", major_version: "22"}
       ],
       latest_major_version: "22",
