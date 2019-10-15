@@ -10,8 +10,8 @@ config :make,
     },
     erlang: %{
       versions: [
-        %{version: "21.3.8.7", major_version: "21"},
-        %{version: "22.1.1", major_version: "22"}
+        %{version: "21.3.8.23", major_version: "21"},
+        %{version: "22.1.3", major_version: "22"}
       ],
       latest_major_version: "22",
       natural_name: "Erlang/OTP",
@@ -20,7 +20,7 @@ config :make,
     elixir: %{
       versions: [
         %{version: "1.8.2", major_version: "1.8"},
-        %{version: "1.9.1", major_version: "1.9"}
+        %{version: "1.9.2", major_version: "1.9"}
       ],
       latest_major_version: "1.9",
       natural_name: "Elixir",

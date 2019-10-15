@@ -46,7 +46,8 @@ Requirements :
 - [yamllint](https://github.com/adrienverge/yamllint)
 
 ```sh
-mix do deps.get, compile, make all publish
+git tag -f publish
+git push -f origin publish
 ```
 
 [erlang hub]: https://hub.docker.com/r/nesachirou/erlang/
