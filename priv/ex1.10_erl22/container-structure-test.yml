@@ -1,0 +1,28 @@
+---
+schemaVersion: "2.0.0"
+commandTests:
+  - name: "Erlang version"
+    command: erl
+    args:
+      - -noshell
+      - -eval
+      - io:format("~s~n", [erlang:system_info(otp_release)]), init:stop().
+    expectedOutput: ["22"]
+  - name: "Elixir version"
+    command: elixir
+    args:
+      - -v
+    expectedOutput: ["22", "1.10.0-rc.0"]
+fileExistenceTests:
+  - name: "Hex"
+    path: "/root/.mix/archives/"
+    shouldExist: true
+    permissions: "drwxr-xr-x"
+  - name: "rebar"
+    path: "/root/.mix/rebar"
+    shouldExist: true
+    permissions: "-rwxr-xr-x"
+  - name: "rebar3"
+    path: "/root/.mix/rebar3"
+    shouldExist: true
+    permissions: "-rwxr-xr-x"
