@@ -10,8 +10,8 @@ config :make,
     },
     erlang: %{
       versions: [
-        %{version: "21.3.8.11", major_version: "21"},
-        %{version: "22.2.2", major_version: "22"}
+        %{version: "21.3.8.12", major_version: "21"},
+        %{version: "22.2.3", major_version: "22"}
       ],
       latest_major_version: "22",
       natural_name: "Erlang/OTP",

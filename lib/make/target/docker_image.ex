@@ -36,7 +36,12 @@ defmodule Make.Target.DockerImage do
           " "
         )
 
-      {_, 0} = System.cmd("sh", ["-eux", "-c", cmd], into: IO.stream(:stdio, :line))
+      {_, 0} =
+        System.cmd("sh", ["-eux", "-c", cmd],
+          env: [{"DOCKER_BUILDKIT", "1"}],
+          into: IO.stream(:stdio, :line)
+        )
+
       target
     end
   end
