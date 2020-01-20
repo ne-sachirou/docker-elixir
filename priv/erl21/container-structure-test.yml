@@ -8,3 +8,10 @@ commandTests:
       - -eval
       - io:format("~s~n", [erlang:system_info(otp_release)]), init:stop().
     expectedOutput: ["21"]
+  - name: "OpenSSL"
+    command: erl
+    args:
+      - -noshell
+      - -eval
+      - io:format("~w~n", [crypto:strong_rand_bytes(8)]), init:stop().
+    expectedOutput: ["<<", ">>"]

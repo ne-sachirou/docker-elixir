@@ -30,7 +30,7 @@ steps:
       - "DOCKER_BUILDKIT=1"
     id: build-ex1.8_erl21
     waitFor: [test-erl21]
-    timeout: 600s
+    timeout: 300s
   - name: gcr.io/gcp-runtimes/container-structure-test
     args: [test, --image, "nesachirou/elixir:1.8_erl21", --config, priv/ex1.8_erl21/container-structure-test.yml]
     id: test-ex1.8_erl21
@@ -42,7 +42,7 @@ steps:
       - "DOCKER_BUILDKIT=1"
     id: build-ex1.8_erl22
     waitFor: [test-erl22]
-    timeout: 600s
+    timeout: 300s
   - name: gcr.io/gcp-runtimes/container-structure-test
     args: [test, --image, "nesachirou/elixir:1.8_erl22", --config, priv/ex1.8_erl22/container-structure-test.yml]
     id: test-ex1.8_erl22
@@ -54,7 +54,7 @@ steps:
       - "DOCKER_BUILDKIT=1"
     id: build-ex1.9_erl21
     waitFor: [test-erl21]
-    timeout: 600s
+    timeout: 300s
   - name: gcr.io/gcp-runtimes/container-structure-test
     args: [test, --image, "nesachirou/elixir:1.9_erl21", --config, priv/ex1.9_erl21/container-structure-test.yml]
     id: test-ex1.9_erl21
@@ -66,7 +66,7 @@ steps:
       - "DOCKER_BUILDKIT=1"
     id: build-ex1.9_erl22
     waitFor: [test-erl22]
-    timeout: 600s
+    timeout: 300s
   - name: gcr.io/gcp-runtimes/container-structure-test
     args: [test, --image, "nesachirou/elixir:1.9_erl22", --config, priv/ex1.9_erl22/container-structure-test.yml]
     id: test-ex1.9_erl22
@@ -99,7 +99,6 @@ steps:
   - name: gcr.io/cloud-builders/docker
     args: [login, -u, nesachirou, -p, $_DOCKER_REGISTRY_PASSWORD]
 
-timeout: 1800s
 images:
   - "nesachirou/erlang:21"
   - "nesachirou/erlang:22"
@@ -113,3 +112,4 @@ images:
   - "nesachirou/elixir:latest"
 options:
   machineType: N1_HIGHCPU_8
+timeout: 1800s

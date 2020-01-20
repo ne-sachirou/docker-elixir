@@ -52,5 +52,12 @@ git tag -f publish
 git push -f origin publish
 ```
 
+Build at local (for debug) :
+
+```sh
+gcloud components install cloud-build-local
+cloud-build-local --config priv/cloudbuild.yaml --substitutions='_DOCKER_REGISTRY_PASSWORD=***' .
+```
+
 [erlang hub]: https://hub.docker.com/r/nesachirou/erlang/
 [elixir hub]: https://hub.docker.com/r/nesachirou/elixir/

@@ -1,4 +1,4 @@
-FROM alpine:3.9
+FROM alpine:3.11
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
