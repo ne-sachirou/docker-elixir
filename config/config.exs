@@ -3,7 +3,7 @@ use Mix.Config
 config :make,
   langs: %{
     clojerl: %{
-      versions: [%{version: "529b9e38f89b0d4b8e23a8da37f314d4aad9480d", major_version: "HEAD"}],
+      versions: [%{version: "27cacfa9ce58c744db708a7f6d4f25ba703acdc9", major_version: "HEAD"}],
       latest_major_version: "HEAD",
       natural_name: "Clojerl",
       short_name: "clje"
@@ -19,11 +19,10 @@ config :make,
     },
     elixir: %{
       versions: [
-        %{version: "1.8.2", major_version: "1.8"},
         %{version: "1.9.4", major_version: "1.9"},
-        %{version: "1.10.0-rc.0", major_version: "1.10"}
+        %{version: "1.10.0", major_version: "1.10"}
       ],
-      latest_major_version: "1.9",
+      latest_major_version: "1.10",
       natural_name: "Elixir",
       short_name: "ex"
     }
