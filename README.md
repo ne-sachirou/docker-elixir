@@ -27,16 +27,6 @@ Erlang & Elixir Dockerfile, supports 2 major versions
 - `HEAD_erl21` [(clje_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/clje_erl21/Dockerfile)
 - `HEAD_erl22`, `latest` [(clje_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/clje_erl22/Dockerfile)
 
-### nesachirou/joxa
-
-- `HEAD_erl21` [(jxa_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/jxa_erl21/Dockerfile)
-- `HEAD_erl22`, `latest` [(jxa_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/jxa_erl22/Dockerfile)
-
-### nesachirou/lfe
-
-- `HEAD_erl21` [(lfe_erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/lfe_erl21/Dockerfile)
-- `HEAD_erl22`, `latest` [(lfe_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/lfe_erl22/Dockerfile)
-
 ## Build images
 
 Requirements :
