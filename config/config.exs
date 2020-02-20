@@ -3,7 +3,7 @@ use Mix.Config
 config :make,
   langs: %{
     clojerl: %{
-      versions: [%{version: "417081ffe05451b7ce5e04f309a7786b69c377f1", major_version: "HEAD"}],
+      versions: [%{version: "5eb2702a301db7d7b6074e2b120735854dd340fa", major_version: "HEAD"}],
       latest_major_version: "HEAD",
       natural_name: "Clojerl",
       short_name: "clje"
@@ -11,7 +11,7 @@ config :make,
     erlang: %{
       versions: [
         %{version: "21.3.8.13", major_version: "21", base_image: "alpine:3.9"},
-        %{version: "22.2.6", major_version: "22", base_image: "alpine:3.11"}
+        %{version: "22.2.7", major_version: "22", base_image: "alpine:3.11"}
       ],
       latest_major_version: "22",
       natural_name: "Erlang/OTP",
