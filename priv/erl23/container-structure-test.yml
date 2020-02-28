@@ -1,0 +1,17 @@
+---
+schemaVersion: "2.0.0"
+commandTests:
+  - name: "Erlang version"
+    command: erl
+    args:
+      - -noshell
+      - -eval
+      - io:format("~s~n", [erlang:system_info(otp_release)]), init:stop().
+    expectedOutput: ["23"]
+  - name: "OpenSSL"
+    command: erl
+    args:
+      - -noshell
+      - -eval
+      - io:format("~w~n", [crypto:strong_rand_bytes(8)]), init:stop().
+    expectedOutput: ["<<", ">>"]

@@ -10,6 +10,7 @@ Erlang & Elixir Dockerfile, supports 2 major versions
 
 - `21` [(erl21/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl21/Dockerfile)
 - `22`, `latest` [(erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl22/Dockerfile)
+- `23` [(erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl23/Dockerfile)
 
 ### [nesachirou/elixir][elixir hub]
 
