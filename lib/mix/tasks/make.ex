@@ -165,18 +165,14 @@ defmodule Mix.Tasks.Make do
   # defp versions_of(:joxa = lang),
   #   do: lang |> versions_of_p() |> Enum.reject(&(&1.erlang.major_version == "20"))
   # ```
-  @spec versions_of(atom) :: [term]
-  defp versions_of(:clojerl = lang) do
-    lang
-    |> versions_of_p()
-    |> Enum.reject(&(&1.erlang.major_version == "23"))
-  end
+  @spec versions_of(atom) :: [map]
 
-  defp versions_of(:elixir = lang) do
-    lang
-    |> versions_of_p()
-    |> Enum.reject(&(&1.erlang.major_version == "23"))
-  end
+  #defp versions_of(:clojerl = lang) do
+  #  lang
+  #  |> versions_of_p()
+  #  |> Enum.reject(&(&1.erlang.major_version == "21"))
+  #  |> Enum.reject(&(&1.erlang.major_version == "23"))
+  #end
 
   defp versions_of(lang), do: versions_of_p(lang)
 

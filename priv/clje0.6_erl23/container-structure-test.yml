@@ -1,0 +1,16 @@
+---
+schemaVersion: "2.0.0"
+commandTests:
+  - name: "Erlang version"
+    command: erl
+    args:
+      - -noshell
+      - -eval
+      - io:format("~s~n", [erlang:system_info(otp_release)]), init:stop().
+    expectedOutput: ["23"]
+  - name: "Clojerl executable"
+    command: clojerl
+    args:
+      - -e
+      - (print (erlang/system_info :otp_release))
+    expectedOutput: ['"23"']
