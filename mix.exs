@@ -6,10 +6,9 @@ defmodule Make.MixProject do
       app: :make,
       deps: deps(),
       dialyzer: [
-        flags: [:no_undefined_callbacks],
         remove_defaults: [:unknown]
       ],
-      elixir: "~> 1.9",
+      elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       version: "0.1.0"
     ]
