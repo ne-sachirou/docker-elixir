@@ -5,8 +5,8 @@ ENV PATH=/root/elixir-1.10.3/bin:$PATH LANG=C.UTF-8
 WORKDIR /root
 
 RUN set -ex \
- && apk add --no-cache -t .build-deps make \
- && wget https://github.com/elixir-lang/elixir/archive/v1.10.3.tar.gz \
+ && apk add --no-cache -t .build-deps curl make \
+ && curl -L https://github.com/elixir-lang/elixir/archive/v1.10.3.tar.gz > v1.10.3.tar.gz \
  && tar xzf v1.10.3.tar.gz \
  && (cd elixir-* \
  && make compile -j) \

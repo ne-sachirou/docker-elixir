@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.12
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
@@ -21,8 +21,8 @@ RUN set -ex \
     unixodbc-dev \
     zlib-dev \
  && export PATH=/usr/lib/jvm/java-1.8-openjdk/bin:$PATH \
- && wget https://github.com/erlang/otp/archive/OTP-23.0.1.tar.gz \
- && tar xzf OTP-23.0.1.tar.gz \
+ && wget https://github.com/erlang/otp/archive/OTP-23.0.2.tar.gz \
+ && tar xzf OTP-23.0.2.tar.gz \
  && (cd otp-* \
  && ./otp_build autoconf \
  && ./configure \

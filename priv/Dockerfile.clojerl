@@ -5,10 +5,10 @@ ENV PATH=/root/clojerl-<%= clojerl.version %>/bin:$PATH
 WORKDIR /root
 
 RUN set -ex \
- && apk add --no-cache -t .build-deps bash make \
- && wget -O /usr/local/bin/rebar3 https://s3.amazonaws.com/rebar3/rebar3 \
+ && apk add --no-cache -t .build-deps bash curl make \
+ && curl -L https://s3.amazonaws.com/rebar3/rebar3 > /usr/local/bin/rebar3 \
  && chmod +x /usr/local/bin/rebar3 \
- && wget https://github.com/clojerl/clojerl/archive/<%= clojerl.version %>.tar.gz \
+ && curl -L https://github.com/clojerl/clojerl/archive/<%= clojerl.version %>.tar.gz > <%= clojerl.version %>.tar.gz \
  && tar xzf <%= clojerl.version %>.tar.gz \
  && (cd clojerl-* \
  && make -j) \
