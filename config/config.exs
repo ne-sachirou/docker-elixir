@@ -13,7 +13,7 @@ config :make,
     erlang: %{
       versions: [
         %{version: "22.3.4.10", major_version: "22", base_image: "alpine:3.12"},
-        %{version: "23.0.3", major_version: "23", base_image: "alpine:3.12"}
+        %{version: "23.0.4", major_version: "23", base_image: "alpine:3.12"}
       ],
       latest_major_version: "23",
       natural_name: "Erlang/OTP",
