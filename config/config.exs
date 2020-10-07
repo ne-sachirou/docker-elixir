@@ -21,10 +21,10 @@ config :make,
     },
     elixir: %{
       versions: [
-        %{version: "1.9.4", major_version: "1.9"},
-        %{version: "1.10.4", major_version: "1.10"}
+        %{version: "1.10.4", major_version: "1.10"},
+        %{version: "1.11.0", major_version: "1.11"}
       ],
-      latest_major_version: "1.10",
+      latest_major_version: "1.11",
       natural_name: "Elixir",
       short_name: "ex"
     }
