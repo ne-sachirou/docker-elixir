@@ -10,6 +10,7 @@ Erlang & Elixir Dockerfile, supports 2 major versions
 
 - `22` [(erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl22/Dockerfile)
 - `23`, `latest` [(erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl23/Dockerfile)
+- `24` [(erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl24/Dockerfile)
 
 ### [nesachirou/elixir][elixir hub]
 
@@ -17,13 +18,10 @@ Erlang & Elixir Dockerfile, supports 2 major versions
 
 - `1.10_erl22` [(ex1.10_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.10_erl22/Dockerfile)
 - `1.10_erl23` [(ex1.10_erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.10_erl23/Dockerfile)
+- `1.10_erl24` [(ex1.10_erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.10_erl24/Dockerfile)
 - `1.11_erl22` [(ex1.11_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.11_erl22/Dockerfile)
 - `1.11_erl23`, `latest` [(ex1.11_erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.11_erl23/Dockerfile)
-
-### nesachirou/clojerl
-
-- `0.6_erl22` [(clje0.6_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/clje0.6_erl22/Dockerfile)
-- `0.6_erl23`, `latest` [(clje0.6_erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/clje0.6_erl23/Dockerfile)
+- `1.11_erl24` [(ex1.11_erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.11_erl24/Dockerfile)
 
 ## Build images
 
