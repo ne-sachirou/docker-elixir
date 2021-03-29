@@ -21,8 +21,8 @@ RUN set -ex \
     unixodbc-dev \
     zlib-dev \
  && export PATH=/usr/lib/jvm/java-1.8-openjdk/bin:$PATH \
- && wget https://github.com/erlang/otp/archive/OTP-24.0-rc1.tar.gz \
- && tar xzf OTP-24.0-rc1.tar.gz \
+ && wget -q https://github.com/erlang/otp/archive/OTP-24.0-rc2.tar.gz \
+ && tar xzf OTP-24.0-rc2.tar.gz \
  && (cd otp-* \
  && ./otp_build autoconf \
  && ./configure \
