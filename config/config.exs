@@ -2,14 +2,6 @@ use Mix.Config
 
 config :make,
   langs: %{
-    clojerl: %{
-      versions: [
-        %{version: "0.6.0", major_version: "0.6"}
-      ],
-      latest_major_version: "0.6",
-      natural_name: "Clojerl",
-      short_name: "clje"
-    },
     erlang: %{
       versions: [
         %{version: "22.3.4.16", major_version: "22", base_image: "alpine:3.12"},
