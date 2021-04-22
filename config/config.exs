@@ -6,7 +6,7 @@ config :make,
       versions: [
         %{version: "22.3.4.17", major_version: "22", base_image: "alpine:3.12"},
         %{version: "23.3.1", major_version: "23", base_image: "alpine:3.13"},
-        %{version: "24.0-rc2", major_version: "24", base_image: "alpine:3.13"}
+        %{version: "24.0-rc3", major_version: "24", base_image: "alpine:3.13"}
       ],
       latest_major_version: "23",
       natural_name: "Erlang/OTP",
