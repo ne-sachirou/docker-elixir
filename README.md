@@ -8,21 +8,17 @@ Erlang & Elixir Dockerfile, supports 2 major versions
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/nesachirou/erlang.svg)][erlang hub]
 
-- `22` [(erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl22/Dockerfile)
-- `23`, `latest` [(erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl23/Dockerfile)
-- `24` [(erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl24/Dockerfile)
+- `23` [(erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl23/Dockerfile)
+- `24`, `latest` [(erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl24/Dockerfile)
 
 ### [nesachirou/elixir][elixir hub]
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/nesachirou/elixir.svg)][elixir hub]
 
-- `1.10_erl22` [(ex1.10_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.10_erl22/Dockerfile)
 - `1.10_erl23` [(ex1.10_erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.10_erl23/Dockerfile)
 - `1.10_erl24` [(ex1.10_erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.10_erl24/Dockerfile)
-- `1.11_erl22` [(ex1.11_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.11_erl22/Dockerfile)
-- `1.11_erl23`, `latest` [(ex1.11_erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.11_erl23/Dockerfile)
-- `1.11_erl24` [(ex1.11_erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.11_erl24/Dockerfile)
-- `1.12_erl22` [(ex1.12_erl22/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.12_erl22/Dockerfile)
+- `1.11_erl23` [(ex1.11_erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.11_erl23/Dockerfile)
+- `1.11_erl24`, `latest` [(ex1.11_erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.11_erl24/Dockerfile)
 - `1.12_erl23` [(ex1.12_erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.12_erl23/Dockerfile)
 - `1.12_erl24` [(ex1.12_erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.12_erl24/Dockerfile)
 
