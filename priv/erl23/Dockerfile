@@ -1,37 +1,30 @@
-FROM alpine:3.13
+FROM debian:stable-slim
 
-SHELL ["/bin/ash", "-o", "pipefail", "-c"]
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 WORKDIR /root
 
-# hadolint ignore=DL3017,SC2086
+# hadolint ignore=DL3003,DL3008
 RUN set -ex \
- && apk upgrade && \
-    apk add --no-cache -t .build-deps \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends \
     autoconf \
-    build-base \
-    dpkg \
-    dpkg-dev \
-    libxml2-utils \
-    libxslt \
-    lksctp-tools-dev \
-    ncurses-dev \
-    openjdk8 \
-    openssl-dev \
-    unixodbc-dev \
-    zlib-dev \
- && export PATH=/usr/lib/jvm/java-1.8-openjdk/bin:$PATH \
- && wget -q https://github.com/erlang/otp/archive/OTP-23.3.1.tar.gz \
- && tar xzf OTP-23.3.1.tar.gz \
+    automake \
+    build-essential \
+    ca-certificates \
+    curl \
+    libncurses-dev \
+    libssl-dev \
+    pax-utils \
+ && curl -L https://github.com/erlang/otp/archive/OTP-23.3.4.tar.gz > OTP-23.3.4.tar.gz \
+ && tar xzf OTP-23.3.4.tar.gz \
  && (cd otp-* \
  && ./otp_build autoconf \
  && ./configure \
     --build="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
-    --disable-builtin-zlib \
     --enable-dynamic-ssl-lib \
     --enable-m64-build \
     --enable-sharing-preserving \
-    --with-ssl=/usr/include \
     --without-debugger \
     --without-et \
     --without-observer \
@@ -44,9 +37,14 @@ RUN set -ex \
  && find /usr/local -type d -regex '.*/src/.*' -print0 | xargs -r0 -I{} sh -c 'rmdir -pv {} || true' \
  && scanelf -BR -F '%F' -E ET_EXEC /usr/local | xargs -r strip -s \
  && scanelf -BR -F '%F' -E ET_DYN /usr/local | xargs -r strip --strip-unneeded \
- && runDeps="$(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr , '\n' | sort -u | awk 'system("[ -e /usr/local/lib/"$1" ]")==0{next}{print "so:"$1}')" \
- && apk del --purge .build-deps \
- && apk add --no-cache $runDeps lksctp-tools \
- && rm -rf /var/cache/apk/*
+ && apt-get remove -y \
+    autoconf \
+    automake \
+    build-essential \
+    curl \
+    pax-utils \
+ && apt-get autoremove -y \
+ && apt-get autoclean \
+ && rm -rf /var/lib/apt/lists/*
 
 CMD ["erl"]
