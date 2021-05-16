@@ -4,8 +4,8 @@ config :make,
   langs: %{
     erlang: %{
       versions: [
-        %{version: "23.3.4", major_version: "23", base_image: "alpine:3.13"},
-        %{version: "24.0", major_version: "24", base_image: "alpine:3.13"}
+        %{version: "23.3.4", major_version: "23"},
+        %{version: "24.0", major_version: "24"}
       ],
       latest_major_version: "24",
       natural_name: "Erlang/OTP",
