@@ -16,8 +16,8 @@ RUN set -ex \
     libncurses-dev \
     libssl-dev \
     pax-utils \
- && curl -L https://github.com/erlang/otp/archive/OTP-24.0.tar.gz > OTP-24.0.tar.gz \
- && tar xzf OTP-24.0.tar.gz \
+ && curl -L https://github.com/erlang/otp/archive/OTP-24.0.1.tar.gz > OTP-24.0.1.tar.gz \
+ && tar xzf OTP-24.0.1.tar.gz \
  && (cd otp-* \
  && ./otp_build autoconf \
  && ./configure \
