@@ -12,7 +12,7 @@ commandTests:
     command: elixir
     args:
       - -v
-    expectedOutput: ["24", "1.12.2"]
+    expectedOutput: ["24", "1.12.3"]
 fileExistenceTests:
   - name: "Hex"
     path: "/root/.mix/archives/"
