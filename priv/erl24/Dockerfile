@@ -16,8 +16,8 @@ RUN set -ex \
     libncurses-dev \
     libssl-dev \
     pax-utils \
- && curl -L https://github.com/erlang/otp/archive/OTP-24.1.6.tar.gz > OTP-24.1.6.tar.gz \
- && tar xzf OTP-24.1.6.tar.gz \
+ && curl -fsL https://github.com/erlang/otp/archive/OTP-24.2.tar.gz > OTP-24.2.tar.gz \
+ && tar xzf OTP-24.2.tar.gz \
  && (cd otp-* \
  && ./otp_build autoconf \
  && ./configure \
@@ -37,7 +37,7 @@ RUN set -ex \
  && find /usr/local -type d -regex '.*/src/.*' -print0 | xargs -r0 -I{} sh -c 'rmdir -pv {} || true' \
  && scanelf -BR -F '%F' -E ET_EXEC /usr/local | xargs -r strip -s \
  && scanelf -BR -F '%F' -E ET_DYN /usr/local | xargs -r strip --strip-unneeded \
- && curl -L https://s3.amazonaws.com/rebar3/rebar3 > rebar3 \
+ && curl -fsL https://s3.amazonaws.com/rebar3/rebar3 > rebar3 \
  && chmod +x rebar3 \
  && mv rebar3 /usr/local/bin/ \
  && apt-get remove -y \

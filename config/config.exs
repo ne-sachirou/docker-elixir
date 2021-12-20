@@ -5,7 +5,7 @@ config :make,
     erlang: %{
       versions: [
         %{version: "23.3.4.9", major_version: "23"},
-        %{version: "24.1.6", major_version: "24"}
+        %{version: "24.2", major_version: "24"}
       ],
       latest_major_version: "24",
       natural_name: "Erlang/OTP",
@@ -13,10 +13,10 @@ config :make,
     },
     elixir: %{
       versions: [
-        %{version: "1.11.4", major_version: "1.11"},
-        %{version: "1.12.3", major_version: "1.12"}
+        %{version: "1.12.3", major_version: "1.12"},
+        %{version: "1.13.1", major_version: "1.13"}
       ],
-      latest_major_version: "1.12",
+      latest_major_version: "1.13",
       natural_name: "Elixir",
       short_name: "ex"
     }

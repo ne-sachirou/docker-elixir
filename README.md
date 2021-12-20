@@ -15,10 +15,10 @@ Erlang & Elixir Dockerfile, supports 2 major versions
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/nesachirou/elixir.svg)][elixir hub]
 
-- `1.11_erl23` [(ex1.11_erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.11_erl23/Dockerfile)
-- `1.11_erl24` [(ex1.11_erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.11_erl24/Dockerfile)
 - `1.12_erl23` [(ex1.12_erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.12_erl23/Dockerfile)
-- `1.12_erl24`, `latest` [(ex1.12_erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.12_erl24/Dockerfile)
+- `1.12_erl24` [(ex1.12_erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.12_erl24/Dockerfile)
+- `1.13_erl23` [(ex1.13_erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.13_erl23/Dockerfile)
+- `1.13_erl24`, `latest` [(ex1.13_erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.13_erl24/Dockerfile)
 
 ## Build images
 

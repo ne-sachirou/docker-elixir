@@ -10,7 +10,7 @@ RUN set -ex \
  && apt-get install -y --no-install-recommends \
     curl \
     make \
- && curl -L https://github.com/elixir-lang/elixir/archive/v<%= elixir.version %>.tar.gz > v<%= elixir.version %>.tar.gz \
+ && curl -fsL https://github.com/elixir-lang/elixir/archive/v<%= elixir.version %>.tar.gz > v<%= elixir.version %>.tar.gz \
  && tar xzf v<%= elixir.version %>.tar.gz \
  && (cd elixir-* \
  && make -j compile) \
