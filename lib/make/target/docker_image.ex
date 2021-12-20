@@ -27,10 +27,12 @@ defmodule Make.Target.DockerImage do
           [
             "docker",
             "build",
-            "--force-rm",
-            if(target.pull?, do: "--pull"),
             "-t",
             target.name,
+            "--force-rm",
+            if(target.pull?, do: "--pull"),
+            "--progress",
+            "plain",
             context
           ],
           " "
