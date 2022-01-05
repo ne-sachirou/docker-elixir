@@ -1,10 +1,10 @@
-use Mix.Config
+use Config
 
 config :make,
   langs: %{
     erlang: %{
       versions: [
-        %{version: "23.3.4.9", major_version: "23"},
+        %{version: "23.3.4.10", major_version: "23"},
         %{version: "24.2", major_version: "24"}
       ],
       latest_major_version: "24",
