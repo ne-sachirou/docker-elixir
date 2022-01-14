@@ -1,4 +1,4 @@
-use Config
+use Mix.Config
 
 config :make,
   langs: %{
@@ -14,7 +14,7 @@ config :make,
     elixir: %{
       versions: [
         %{version: "1.12.3", major_version: "1.12"},
-        %{version: "1.13.1", major_version: "1.13"}
+        %{version: "1.13.2", major_version: "1.13"}
       ],
       latest_major_version: "1.13",
       natural_name: "Elixir",
