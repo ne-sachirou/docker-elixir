@@ -1,3 +1,6 @@
+[![Coverage Status](https://coveralls.io/repos/github/AUTHOR_NAME/PROJECT_NAME/badge.svg)](https://coveralls.io/github/AUTHOR_NAME/PROJECT_NAME)
+[![Actions Status](https://github.com/AUTHER_NAME/PROJECT_NAME/workflows/test/badge.svg)](https://github.com/AUTHER_NAME/PROJECT_NAME/actions)
+[![Hex.pm](https://img.shields.io/hexpm/v/PROJECT_NAME.svg)](https://hex.pm/packages/PROJECT_NAME)
 # Erlang & Elixir Dockerfile
 
 Erlang & Elixir Dockerfile, supports 2 major versions
@@ -8,17 +11,17 @@ Erlang & Elixir Dockerfile, supports 2 major versions
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/nesachirou/erlang.svg)][erlang hub]
 
-- `23` [(erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl23/Dockerfile)
-- `24`, `latest` [(erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl24/Dockerfile)
+- `24` [(erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl24/Dockerfile)
+- `25`, `latest` [(erl25/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/erl25/Dockerfile)
 
 ### [nesachirou/elixir][elixir hub]
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/nesachirou/elixir.svg)][elixir hub]
 
-- `1.12_erl23` [(ex1.12_erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.12_erl23/Dockerfile)
 - `1.12_erl24` [(ex1.12_erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.12_erl24/Dockerfile)
-- `1.13_erl23` [(ex1.13_erl23/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.13_erl23/Dockerfile)
-- `1.13_erl24`, `latest` [(ex1.13_erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.13_erl24/Dockerfile)
+- `1.12_erl25` [(ex1.12_erl25/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.12_erl25/Dockerfile)
+- `1.13_erl24` [(ex1.13_erl24/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.13_erl24/Dockerfile)
+- `1.13_erl25`, `latest` [(ex1.13_erl25/Dockerfile)](https://github.com/ne-sachirou/docker-elixir/blob/master/priv/ex1.13_erl25/Dockerfile)
 
 ## Build images
 

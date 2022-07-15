@@ -7,12 +7,12 @@ commandTests:
       - -noshell
       - -eval
       - io:format("~s~n", [erlang:system_info(otp_release)]), init:stop().
-    expectedOutput: ["23"]
+    expectedOutput: ["25"]
   - name: "Elixir version"
     command: elixir
     args:
       - -v
-    expectedOutput: ["23", "1.13.2"]
+    expectedOutput: ["25", "1.12.3"]
 fileExistenceTests:
   - name: "Hex"
     path: "/root/.mix/archives/"
