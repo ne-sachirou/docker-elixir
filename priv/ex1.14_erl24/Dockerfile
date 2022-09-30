@@ -1,6 +1,6 @@
 FROM nesachirou/erlang:24
 
-ENV PATH=/root/elixir-1.12.3/bin:$PATH LANG=C.UTF-8
+ENV PATH=/root/elixir-1.14.0/bin:$PATH LANG=C.UTF-8
 
 WORKDIR /root
 
@@ -10,12 +10,12 @@ RUN set -ex \
  && apt-get install -y --no-install-recommends \
     curl \
     make \
- && curl -fsL https://github.com/elixir-lang/elixir/archive/v1.12.3.tar.gz > v1.12.3.tar.gz \
- && tar xzf v1.12.3.tar.gz \
+ && curl -fsL https://github.com/elixir-lang/elixir/archive/v1.14.0.tar.gz > v1.14.0.tar.gz \
+ && tar xzf v1.14.0.tar.gz \
  && (cd elixir-* \
  && make -j compile) \
  && mix "do" local.hex --force, local.rebar --force \
- && rm v1.12.3.tar.gz \
+ && rm v1.14.0.tar.gz \
  && apt-get remove -y \
     curl \
     make \

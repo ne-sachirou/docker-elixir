@@ -26,3 +26,4 @@ fileExistenceTests:
     path: "/root/.mix/rebar3"
     shouldExist: true
     permissions: "-rwxr-xr-x"
+

@@ -12,17 +12,14 @@ commandTests:
     command: elixir
     args:
       - -v
-    expectedOutput: ["24", "1.12.3"]
+    expectedOutput: ["24", "1.14.0"]
 fileExistenceTests:
   - name: "Hex"
     path: "/root/.mix/archives/"
     shouldExist: true
     permissions: "drwxr-xr-x"
-  - name: "rebar"
-    path: "/root/.mix/rebar"
-    shouldExist: true
-    permissions: "-rwxr-xr-x"
   - name: "rebar3"
-    path: "/root/.mix/rebar3"
+    path: "/root/.mix/elixir/1-14/rebar3"
     shouldExist: true
     permissions: "-rwxr-xr-x"
+

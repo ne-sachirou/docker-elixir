@@ -18,6 +18,9 @@ fileExistenceTests:
     path: "/root/.mix/archives/"
     shouldExist: true
     permissions: "drwxr-xr-x"
+<%=
+if elixir.major_version == "1.13" do
+~s"""
   - name: "rebar"
     path: "/root/.mix/rebar"
     shouldExist: true
@@ -26,3 +29,13 @@ fileExistenceTests:
     path: "/root/.mix/rebar3"
     shouldExist: true
     permissions: "-rwxr-xr-x"
+"""
+else
+~s"""
+  - name: "rebar3"
+    path: "/root/.mix/elixir/#{String.replace(elixir.major_version, ".", "-")}/rebar3"
+    shouldExist: true
+    permissions: "-rwxr-xr-x"
+"""
+end
+%>
