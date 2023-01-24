@@ -5,7 +5,7 @@ config :make,
     erlang: %{
       versions: [
         %{version: "24.3.4.8", major_version: "24"},
-        %{version: "25.2.1", major_version: "25"},
+        %{version: "25.2.1", major_version: "25"}
       ],
       latest_major_version: "25",
       natural_name: "Erlang/OTP",
