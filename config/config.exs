@@ -14,7 +14,7 @@ config :make,
     elixir: %{
       versions: [
         %{version: "1.13.4", major_version: "1.13"},
-        %{version: "1.14.3", major_version: "1.14"}
+        %{version: "1.14.4", major_version: "1.14"}
       ],
       latest_major_version: "1.14",
       natural_name: "Elixir",
