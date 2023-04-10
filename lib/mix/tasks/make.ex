@@ -121,7 +121,7 @@ defmodule Mix.Tasks.Make do
               container-structure-test test \
                 --image nesachirou/#{lang}:#{tag} \
                 --config #{dir}/container-structure-test.yml
-              docker scan nesachirou/#{lang}:#{tag} || true
+              docker scout cves nesachirou/#{lang}:#{tag} || true
               """
             ),
             phony("#{lang}:#{tag}",
