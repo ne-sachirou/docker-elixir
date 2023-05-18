@@ -7,7 +7,7 @@ commandTests:
       - -noshell
       - -eval
       - io:format("~s~n", [erlang:system_info(otp_release)]), init:stop().
-    expectedOutput: ["24"]
+    expectedOutput: ["26"]
   - name: "rebar3"
     command: rebar3
     expectedOutput: ["Rebar3 is a tool for working with Erlang projects."]

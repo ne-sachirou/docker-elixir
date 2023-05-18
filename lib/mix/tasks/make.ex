@@ -168,6 +168,12 @@ defmodule Mix.Tasks.Make do
   # ```
   @spec versions_of(atom) :: [map]
 
+  defp versions_of(:elixir = lang) do
+    lang
+    |> versions_of_p()
+    |> Enum.reject(&(&1.elixir.major_version == "1.13" && &1.erlang.major_version == "26"))
+  end
+
   defp versions_of(lang), do: versions_of_p(lang)
 
   defp versions_of_p(:erlang = lang) do
