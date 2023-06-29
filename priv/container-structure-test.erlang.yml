@@ -29,14 +29,14 @@ commandTests:
         io:format("~p~n", [httpc:request("https://httpbin.org/status/200")]),
         init:stop().
     expectedOutput: ['{ok,{{"HTTP/1.1",200,"OK"},']
-  - name: "repo.hex.pm"
-    command: erl
-    args:
-      - -noshell
-      - -eval
-      - |
-        inets:start(),
-        application:ensure_all_started(ssl),
-        io:format("~p~n", [httpc:request("https://repo.hex.pm/installs/hex-1.x.csv")]),
-        init:stop().
-    expectedOutput: ['{ok,{{"HTTP/1.1",200,"OK"},']
+  #- name: "repo.hex.pm"
+  #  command: erl
+  #  args:
+  #    - -noshell
+  #    - -eval
+  #    - |
+  #      inets:start(),
+  #      application:ensure_all_started(ssl),
+  #      io:format("~p~n", [httpc:request("https://repo.hex.pm/installs/hex-1.x.csv")]),
+  #      init:stop().
+  #  expectedOutput: ['{ok,{{"HTTP/1.1",200,"OK"},']

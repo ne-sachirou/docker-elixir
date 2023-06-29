@@ -163,16 +163,13 @@ defmodule Mix.Tasks.Make do
   # NOTE: To reject old version,
   #
   # ```
-  # defp versions_of(:joxa = lang),
-  #   do: lang |> versions_of_p() |> Enum.reject(&(&1.erlang.major_version == "20"))
+  # defp versions_of(:elixir = lang) do
+  #   lang
+  #   |> versions_of_p()
+  #   |> Enum.reject(&(&1.elixir.major_version == "1.13" && &1.erlang.major_version == "26"))
+  # end
   # ```
   @spec versions_of(atom) :: [map]
-
-  defp versions_of(:elixir = lang) do
-    lang
-    |> versions_of_p()
-    |> Enum.reject(&(&1.elixir.major_version == "1.13" && &1.erlang.major_version == "26"))
-  end
 
   defp versions_of(lang), do: versions_of_p(lang)
 
